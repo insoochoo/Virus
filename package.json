@@ -1,0 +1,22 @@
+{
+  "name": "speed",
+  "version": "0.0.0",
+  "description": "Speed quiz",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "speed",
+    "quiz",
+    "insoo",
+    "bumjung",
+    "project",
+    "nodejs",
+    "socketio",
+    "express"
+  ],
+  "author": "Insoo Choo and Paul Kim",
+  "license": "ISC"
+}
