@@ -4,8 +4,7 @@
   "description": "Speed quiz",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "speed",
@@ -18,5 +17,14 @@
     "express"
   ],
   "author": "Insoo Choo and Paul Kim",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "async": "^0.7.0",
+    "express": "^4.0.0",
+    "jade": "^1.3.1",
+    "socket.io": "^0.9.16"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
 }
