@@ -39,6 +39,10 @@ function generateTime(){
 function generateQuestion(){
 
 }
+
+function calculatePoints(){
+
+}
 /*
 //////////////////////////////////////////////////////////////////
 // ==========================  URL =========================== //
@@ -110,6 +114,7 @@ io.sockets.on("connection",function(socket){
 			socket.set("points",0);
 			socket.set("ready", false);
 			socket.set("done", false);
+			socket.set("correct", false);
 
 			io.sockets.in(room).emit("notify", { success:1, message:"Both players connected." } );
 		}
@@ -122,10 +127,11 @@ io.sockets.on("connection",function(socket){
 			socket.set("points",0);
 			socket.set("ready", false);
 			socket.set("done", false);
+			socket.set("correct", false);
 		}
 	});
 
-	socket.on("gamestart",function(){
+	socket.on("onReady",function(){
 		async.parallel([
 			socket.get.bind(this, "room"),
 			socket.get.bind(this, "opponent"),
@@ -139,37 +145,62 @@ io.sockets.on("connection",function(socket){
 	    		if(ready){
 
 	    			// countdowns down in the frontend
-	    			socket.emit("countdown", { count : 5 });
+	    			socket.emit("displayCountdown", { count : 5 });
 
 	    			// wait for countdown (5,4,3,2,1,start) == 6 seconds
 					setTimeout(function(){
-
-						//start time, generate question, emit it to front end
-						games[results[0]].roundStartTime=generateTime();
 						console.log("START!!!!");
+						//start time, generate question, emit it to front end
+						
+						games[results[0]].roundStartTime=generateTime();
+
+						var elapsedTime, tempTime = 0;
+
 						//emit (roundLimitTime-(roundNewTime - roundStartTime))/roundLimitTime
 						// roundLimitTime = 5? 10? (sec)
-						/*var stopinterval=setInterval(function(){
+						var stopinterval=setInterval(function(){
 							// if both finished, stop interval
-							// socket.on("done") will set 
-							
+							elapsedTime = tempTime-roundStartTime;
+							displayTime = ((5 - elapsedTime)/5) * 100;
+							if(displayTime < 50){
+								io.sockets.in(results[0]).emit("displayTime", { time : displayTime, color: "#red" });
+							}
+							else{
+								io.sockets.in(results[0]).emit("displayTime", { time : displayTime, color: "#green" });
+							}
+							// socket.on("check") will set 
 							results[1].get("done", function(err,done){
-								if(done && results[2]){
+								
+								// when socket enters a 
+								if(results[2]){
+									finalTime=elapsedTime;
+									socket.emit("displayPoints", { points : calculatePoints(finalTime); });
 									clearInterval(stopinterval);
 								}
 							});
 
+							//
+							tempTime=generateTime();
 
-						},100);*/
+						},100);
 
 					},6000);
 	    		}
 	    		else{
 	    			socket.emit("notify", { success:0, message:"Waiting on your friend to get ready..."});
-	    			socket.emit("notify", { success:0, message:"Your friend is ready!"});
+	    			socket.emit("notify", { success:0, message:"Your friend waiting on you!"});
 	    		}
 	    	});
 	    });
+	});
+
+	socket.on("check",function(){
+		
+		if(room in games){
+			socket.set("done", true);
+
+
+		}
 	});
 
 	socket.on("test",function(){
