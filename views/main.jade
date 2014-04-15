@@ -1,1 +1,44 @@
 extends base
+
+block content
+	.container(id="main-content")
+		.row
+			.col-md-2
+				.p1-score
+					i(class="fa fa-trophy") &nbsp;
+					span 0
+				.clear
+				.p1-status.online
+					i(class="fa fa-circle")
+					span &nbsp;Connected
+
+			#board.col-md-5
+				table.center-table
+				.form-group(id="room-url")
+					label(for="shareUrl").col-md-3.control-label.share-label
+						span(id="help")
+							i(id="help-icon" class="fa fa-question-circle" rel="tooltip" data-toggle="tooltip" title="Copy the link by clicking the clipboard button !")
+						| Share URL:
+					.col-md-8
+						input(id="shareURL" style="display:inline-block;" type='text', data-room=share, name='shareUrl', value=shareURL ReadOnly).form-control
+						//input.button.send(style="float:none; display:inline-block;" type='button', value='COPY')
+						//span(id="clipboard-wrapper" rel="tooltip" data-toggle="tooltip" data-placement="right" title="CLICK ME TO COPY !")
+							i(class="fa fa-square fa-stack-2x")
+						span(id="copy-clipboard" class="fa-stack fa-lg" data-clipboard-target="shareURL")
+							i(class="fa fa-square fa-stack-2x")
+							i(class="fa fa-clipboard fa-stack-1x" style="color:#fff")
+
+			.col-md-2
+				.p2-score
+					i(class="fa fa-trophy") &nbsp;
+					span 0
+				.clear
+				.p2-status(style="float:left")
+					i(class="fa fa-circle")
+					span &nbsp;OFFLINE
+			.col-md-3
+				.controls
+					#content
+					input.field(type="text")
+					input.button.send(id="send_message" type='button', value='Send' rel="tooltip" data-toggle="tooltip-button" title="You can also send messages by clicking 'Enter' !")
+					
