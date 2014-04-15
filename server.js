@@ -145,7 +145,7 @@ io.sockets.on("connection",function(socket){
 	    		if(ready){
 
 	    			// countdowns down in the frontend
-	    			socket.emit("displayCountdown", { count : 5 });
+	    			socket.emit("displayCountdown", { count : 7 });
 
 	    			// wait for countdown (5,4,3,2,1,start) == 6 seconds
 					setTimeout(function(){
@@ -184,7 +184,7 @@ io.sockets.on("connection",function(socket){
 
 						},100);
 
-					},6000);
+					},8000);
 	    		}
 	    		else{
 	    			socket.emit("notify", { success:0, message:"Waiting on your friend to get ready..."});

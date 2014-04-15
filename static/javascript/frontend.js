@@ -26,7 +26,7 @@ $(document).ready(function(){
 		}
 	});
 
-	socket.on("countdown",function(data){
+	socket.on("displayCountdown",function(data){
 		if(data.count){
 			count=data.count;
 			var stopinterval=setInterval(function(){
