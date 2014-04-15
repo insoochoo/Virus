@@ -174,7 +174,7 @@ io.sockets.on("connection",function(socket){
 								// when socket enters a 
 								if(results[2]){
 									finalTime=elapsedTime;
-									socket.emit("displayPoints", { points : calculatePoints(finalTime); });
+									socket.emit("displayPoints", { points : calculatePoints(finalTime) });
 									clearInterval(stopinterval);
 								}
 							});
