@@ -86,19 +86,10 @@ $(document).ready(function() {
 
 });
 
-socket.on("drop",function(data){
-	var row = 0;
-	var stopinterval=setInterval(function(){
-		if(row == data.row){
-			clearInterval(stopinterval);
-		}
-		//color in one at a time
-		$(".box[data-row='"+(row-1)+"'][data-column='"+data.column+"'] i").css("color",'');
-		$(".box[data-row='"+row+"'][data-column='"+data.column+"'] i").css("color",data.color);
-		$(".box[data-row='"+row+"'][data-column='"+data.column+"'] i").css("opacity",1);
-		row++;
-
-	},25);
+socket.on("place",function(data){
+	var germ = $(".box[data-row='"+1+"'][data-column='"+1+"'] i");
+	germ.css("color", data.color);
+    //alert("placed on row :" + data.row + " column : "+ data.column);
 });
 
 socket.on("preview",function(data){
