@@ -392,7 +392,7 @@ io.sockets.on("connection",function(socket){
 			    		var row = data.row;
 			    		var validPlacementList = validGrid(currentBoard, results[3]);
 			    		var isValid = false;
-			    		for(int i = 0; i < validPlacementList; i++) {
+			    		for(var i = 0; i < validPlacementList; i++) {
 			    			if(validPlacementList[i].x == row && validPlacementList[i].y == column) {
 			    				isValid = true;
 			    				break;
@@ -404,7 +404,7 @@ io.sockets.on("connection",function(socket){
 
 			    			// Change board state
 			    			var infectedGridList = infectedGrid(currentBoard, row, column, currentPlayer);
-			    			for(int i = 0; i < infectedGridList; i++) {
+			    			for(var i = 0; i < infectedGridList; i++) {
 			    				games[results[2]].board[infectedGridList[i].x][infectedGridList[i].y] = currentPlayer;
 			    			}
 
