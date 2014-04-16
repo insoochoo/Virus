@@ -153,6 +153,96 @@ function checkDraw(room){
 	}
 	return true;
 }
+
+// Pass in the current board state(2d array) and the number of the current player (1 or 2)
+// Returns an array of valid coordinates
+function validGrid(currentBoard, currentPlayer) {
+	var validGridList = [];
+	for(var x = 1; x < currentBoard.length - 1; x++) {
+		for(var y = 1; y < currentBoard[x].length - 1; y++) {
+			if( currentBoard[x][y] == 0 ) {
+				if( currentBoard[x+1][y] == currentPlayer ||
+					currentBoard[x+1][y+1] == currentPlayer ||
+					currentBoard[x][y+1] == currentPlayer ||
+					currentBoard[x-1][y+1] == currentPlayer ||
+					currentBoard[x-1][y] == currentPlayer ||
+					currentBoard[x-1][y-1] == currentPlayer ||
+					currentBoard[x][y-1] == currentPlayer ||
+					currentBoard[x+1][y-1] == currentPlayer ) {
+						currentBoard[x][y] = 3;
+						var validGrid = {x:0, y:0};
+						validGrid.x = x;
+						validGrid.y = y;
+						validGridList.push(validGrid);
+
+
+				}
+			}
+		}
+	}
+	for(var x = 1; x < currentBoard.length - 1; x++ ) {
+		if(	currentBoard[x][0] == 0) {
+			if(currentBoard[x+1][0] == currentPlayer ||
+			currentBoard[x+1][1] == currentPlayer ||
+			currentBoard[x][1] == currentPlayer ||
+			currentBoard[x-1][1] == currentPlayer ||
+			currentBoard[x-1][0] == currentPlayer) {
+				currentBoard[x][0] = 3;
+				var validGrid = {x:0, y:0};
+				validGrid.x = x;
+				validGrid.y = 0;
+				validGridList.push(validGrid);
+			}
+
+
+		}
+		if( currentBoard[x][currentBoard[x].length - 1] == 0 ) {
+			if(currentBoard[x+1][currentBoard[x].length - 1] == currentPlayer ||
+				currentBoard[x-1][currentBoard[x].length - 1] == currentPlayer ||
+				currentBoard[x-1][currentBoard[x].length - 2] == currentPlayer ||
+				currentBoard[x][currentBoard[x].length - 2] == currentPlayer ||
+				currentBoard[x+1][currentBoard[x].length - 2] == currentPlayer) {
+					currentBoard[x][currentBoard[x].length - 1] = 3;
+					var validGrid = {x:0, y:0};
+					validGrid.x = x;
+					validGrid.y = currentBoard[x].length - 1;
+					validGridList.push(validGrid);
+			}
+		}
+	}
+
+	for(var y = 1; y < currentBoard[0].length - 1; y++) {
+		if(currentBoard[0][y] == 0) {
+			if(currentBoard[0][y - 1] == currentPlayer ||
+				currentBoard[1][y - 1] == currentPlayer |
+				currentBoard[1][y] == currentPlayer ||
+				currentBoard[1][y + 1] == currentPlayer ||
+				currentBoard[0][y + 1] == currentPlayer ) {
+					currentBoard[0][y] = 3;
+					var validGrid = {x:0, y:0};
+					validGrid.x = 0;
+					validGrid.y = y;
+					validGridList.push(validGrid);
+			}
+		}
+		if(currentBoard[currentBoard.length - 1][y] == 0) {
+			if(currentBoard[currentBoard.length - 1][y-1]== currentPlayer ||
+				currentBoard[currentBoard.length - 2][y-1]== currentPlayer ||
+				currentBoard[currentBoard.length - 2][y]== currentPlayer ||
+				currentBoard[currentBoard.length - 2][y+1]== currentPlayer ||
+				currentBoard[currentBoard.length - 1][y+1]== currentPlayer ) {
+					currentBoard[currentBoard.length - 1][y] = 3;
+					var validGrid = {x:0, y:0};
+					validGrid.x = currentBoard.length - 1;
+					validGrid.y = y;
+					validGridList.push(validGrid);
+			}
+		}
+	}
+	return validGridList;
+
+}
+
 //URL CONFIG
 app.get("/", function(req, res) {
     res.render("index.jade");
