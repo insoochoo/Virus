@@ -86,6 +86,11 @@ $(document).ready(function() {
 
 });
 
+socket.on("updateScore", function(data){
+	$(".p1-score span").html(data.p1);
+	$(".p2-score span").html(data.p2);
+})
+
 socket.on("available", function(data){
 	for(var i = 0; i < 8; i++){
 		for(var l=0; l < 8; l++){
