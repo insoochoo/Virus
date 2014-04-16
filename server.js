@@ -445,9 +445,8 @@ io.sockets.on("connection",function(socket){
 			
 				// on mouseenter
 			    if(data.hover == 1){
-			    	var row=getRow(results[0], data.column);
-			    	socket.set("preview", [row, data.column]);
-			    	io.sockets.in(results[0]).emit("preview",{ hover:1, row:row, column:data.column, color:results[1] });
+			    	socket.set("preview", [data.row, data.column]);
+			    	io.sockets.in(results[0]).emit("preview",{ hover:1, row:data.row, column:data.column, color:results[1] });
 			    }
 
 			    // on mouseleave
@@ -468,7 +467,6 @@ io.sockets.on("connection",function(socket){
 			    			}
 				    	});
 					}
-			    
 			    	
 			    }
 			}
