@@ -311,7 +311,7 @@ io.sockets.on("connection",function(socket){
 			socket.join(data.room);
 			socket.set("room", data.room);
 			socket.set("pid", 2);
-			socket.set("color", "#e74c3c");
+			socket.set("color", "#F56363");
 			socket.set("preview",[]);
 			socket.set("ready",true);
 			// Set opponents
@@ -362,7 +362,7 @@ io.sockets.on("connection",function(socket){
 			socket.join(data.room);
 			socket.set("room", data.room);
 			socket.set("pid", 1);
-			socket.set("color", "#f1c40f");
+			socket.set("color", "#FDD761");
 			socket.set("turn", false);
 			socket.set("preview", []);
 			socket.set("ready",true);

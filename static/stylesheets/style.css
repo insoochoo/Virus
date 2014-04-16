@@ -108,15 +108,18 @@ code {
 
 .p1-score, .p2-score{
   display: inline-block;
-  width: 50%;
-  background-color:#f1c40f;
+  width: 107px;
+  margin-left: 2px;
+  border-bottom: 2px solid #DBBA53;
   color:#fff;
   font-size: 25px;
   border-radius: 3px;
   text-align: center;
+  background-color: #FDD761;
 }
 .p2-score{
-  background-color:#e74c3c;
+  background-color: #F56363;
+  border-bottom: 2px #DF5656 solid;
 }
 .p1-score i, .p2-score i{
   font-size: 30px;
