@@ -187,7 +187,6 @@ function validGrid(currentBoard, currentPlayer) {
 			currentBoard[x][1] == currentPlayer ||
 			currentBoard[x-1][1] == currentPlayer ||
 			currentBoard[x-1][0] == currentPlayer) {
-				currentBoard[x][0] = 3;
 				var validGrid = {x:0, y:0};
 				validGrid.x = x;
 				validGrid.y = 0;
@@ -202,7 +201,6 @@ function validGrid(currentBoard, currentPlayer) {
 				currentBoard[x-1][currentBoard[x].length - 2] == currentPlayer ||
 				currentBoard[x][currentBoard[x].length - 2] == currentPlayer ||
 				currentBoard[x+1][currentBoard[x].length - 2] == currentPlayer) {
-					currentBoard[x][currentBoard[x].length - 1] = 3;
 					var validGrid = {x:0, y:0};
 					validGrid.x = x;
 					validGrid.y = currentBoard[x].length - 1;
@@ -218,7 +216,6 @@ function validGrid(currentBoard, currentPlayer) {
 				currentBoard[1][y] == currentPlayer ||
 				currentBoard[1][y + 1] == currentPlayer ||
 				currentBoard[0][y + 1] == currentPlayer ) {
-					currentBoard[0][y] = 3;
 					var validGrid = {x:0, y:0};
 					validGrid.x = 0;
 					validGrid.y = y;
@@ -231,7 +228,6 @@ function validGrid(currentBoard, currentPlayer) {
 				currentBoard[currentBoard.length - 2][y]== currentPlayer ||
 				currentBoard[currentBoard.length - 2][y+1]== currentPlayer ||
 				currentBoard[currentBoard.length - 1][y+1]== currentPlayer ) {
-					currentBoard[currentBoard.length - 1][y] = 3;
 					var validGrid = {x:0, y:0};
 					validGrid.x = currentBoard.length - 1;
 					validGrid.y = y;
