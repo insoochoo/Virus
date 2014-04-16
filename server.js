@@ -413,7 +413,7 @@ io.sockets.on("connection",function(socket){
 			    			}
 
 			    			// Broadcast message of germ placement to front end
-			    			io.sockets.in(results[2]).emit("place", { row:row, column:column, infectedGrids:infectedGridList });
+			    			io.sockets.in(results[2]).emit("place", { row:row, column:column, infectedGrids:infectedGridList, color: results[4] });
 			    		}
 			    		else {
 			    			// You can't place germ here
