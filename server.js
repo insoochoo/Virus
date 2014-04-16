@@ -414,7 +414,7 @@ io.sockets.on("connection",function(socket){
 			    			}
 
 			    			// Broadcast message of germ placement to front end
-			    			io.sockets.in(results[2]).emit("place", { row:row, column:column, infectedGrids:infectedGridList, color: results[4] });
+			    			io.sockets.in(results[2]).emit("place", { row:data.row, column:data.column, infectedGrids:infectedGridList, color: results[4] });
 			    			
 			    			//Pass the turn to the opponent
 			    			socket.set("turn", false);

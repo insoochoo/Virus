@@ -87,9 +87,9 @@ $(document).ready(function() {
 });
 
 socket.on("place",function(data){
-	var germ = $(".box[data-row='"+1+"'][data-column='"+1+"'] i");
-	germ.css("color", data.color);
-    //alert("placed on row :" + data.row + " column : "+ data.column);
+	var germ = $(".box[data-row='"+data.row+"'][data-column='"+data.column+"'] i");
+	germ.css("color",data.color);
+	germ.css("opacity",1);
 });
 
 socket.on("preview",function(data){
