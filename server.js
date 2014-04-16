@@ -339,6 +339,21 @@ io.sockets.on("connection",function(socket){
 			//Notify players
 			games[data.room].player1.emit("notify",{connected:1, turn : true});
 			socket.emit("notify",{connected:1, turn : false});
+
+			var player1Color;
+			var player2Color;
+			games[data.room].player1.get("color", function(err, data){
+				player1Color = data;
+			}); 
+			games[data.room].player2.get("color", function(err, data){
+				player2Color = data;
+			}); 
+
+			//Message front end to place starting germs onto the table
+			io.sockets.in(data.room).emit("place", {row:0, column:0, infectedGrids:[], color:player1Color});
+			io.sockets.in(data.room).emit("place", {row:length - 1, column:length - 1, infectedGrid:[], color:player1Color});
+			io.sockets.in(data.room).emit("place", {row:length - 1, column:0, infectedGrids:[], color:player2Color});
+			io.sockets.in(data.room).emit("place", {row:0, column:length - 1, infectedGrids:[], color:player2Color});
 		}
 
 		// Initiate player 1 and game table
