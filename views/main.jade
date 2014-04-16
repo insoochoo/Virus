@@ -3,7 +3,7 @@ extends base
 block content
 	.container(id="main-content")
 		.row
-			.col-md-2
+			.col-xs-2
 				.p1-score
 					i(class="fa fa-trophy") &nbsp;
 					span 0
@@ -11,8 +11,15 @@ block content
 				.p1-status.online
 					i(class="fa fa-circle")
 					span &nbsp;Connected
-
-			#board.col-md-5
+				.p2-score
+					i(class="fa fa-trophy") &nbsp;
+					span 0
+				.clear
+				.p2-status(style="float:left")
+					i(class="fa fa-circle")
+					span &nbsp;OFFLINE
+			.col-xs-1
+			#board.col-xs-5
 				table.center-table
 				.form-group(id="room-url")
 					label(for="shareUrl").col-md-3.control-label.share-label
@@ -27,16 +34,8 @@ block content
 						span(id="copy-clipboard" class="fa-stack fa-lg" data-clipboard-target="shareURL")
 							i(class="fa fa-square fa-stack-2x")
 							i(class="fa fa-clipboard fa-stack-1x" style="color:#fff")
-
-			.col-md-2
-				.p2-score
-					i(class="fa fa-trophy") &nbsp;
-					span 0
-				.clear
-				.p2-status(style="float:left")
-					i(class="fa fa-circle")
-					span &nbsp;OFFLINE
-			.col-md-3
+			.col-xs-1
+			.col-xs-3
 				.controls
 					#content
 					input.field(type="text")

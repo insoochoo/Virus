@@ -15,6 +15,7 @@ body {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
+  min-width: 1000px;
   height: 60px;
   background-color: #34495e;
 }
@@ -27,6 +28,8 @@ body {
 
 .topBar {
     background-color: #0e91a1;
+    width: 100%;
+    min-width: 1000px;
 }
 .topBar a {
     color: white;
@@ -81,6 +84,7 @@ code {
 
 #main-content{
   margin-top:30px;
+  width: 1000px;
 }
 #room-url{
   margin-top:30px;
@@ -93,16 +97,14 @@ code {
 .p1-score, .p2-score{
   padding:0 20px;
   height:90px;
-  width:auto;
-  float:right;
+  width: 200px;
   background-color:#f1c40f;
-  margin-top:50%;
+  margin-top: 50px;
   color:#fff;
   font-size:65px;
   border-radius: 5px;
 }
 .p2-score{
-  float:left;
   background-color:#e74c3c;
 }
 .p1-score i, .p2-score i{
