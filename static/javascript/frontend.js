@@ -91,9 +91,6 @@ socket.on("place",function(data){
 	germ.css("background-color",data.color);
 	germ.css("opacity",1);
 
-	for(var i = 0; i < data.infectedGrids.length; i++){
-		
-	}
 });
 
 socket.on("preview",function(data){
