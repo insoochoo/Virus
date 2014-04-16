@@ -395,8 +395,9 @@ io.sockets.on("connection",function(socket){
 			    		var column = data.column;
 			    		var row = data.row;
 			    		var validPlacementList = validGrid(currentBoard, results[3]);
+			    		console.log(validPlacementList);
 			    		var isValid = false;
-			    		for(var i = 0; i < validPlacementList; i++) {
+			    		for(var i = 0; i < validPlacementList.length; i++) {
 			    			if(validPlacementList[i].x == row && validPlacementList[i].y == column) {
 			    				isValid = true;
 			    				break;
@@ -407,9 +408,9 @@ io.sockets.on("connection",function(socket){
 			    			games[results[2]].board[row][column] = results[3];
 
 			    			// Change board state
-			    			var infectedGridList = infectedGrid(currentBoard, row, column, currentPlayer);
+			    			var infectedGridList = infectedGrid(currentBoard, row, column, results[3]);
 			    			for(var i = 0; i < infectedGridList; i++) {
-			    				games[results[2]].board[infectedGridList[i].x][infectedGridList[i].y] = currentPlayer;
+			    				games[results[2]].board[infectedGridList[i].x][infectedGridList[i].y] = results[3];
 			    			}
 
 			    			// Broadcast message of germ placement to front end
