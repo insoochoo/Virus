@@ -31,13 +31,17 @@ function generateRoom() {
 };
 function initBoard(){
 	var board=[]
-	for (var i=0; i < 8; i ++){
+	for (var i=0; i < length; i ++){
 		row=[]
-		for (var j=0; j < 8; j++){
+		for (var j=0; j < length; j++){
 			row.push(0);
 		}
 		board.push(row);
 	}
+	board[0][0] = 1;
+	board[length - 1][length - 1] = 1;
+	board[length - 1][0] = 2;
+	board[0][length - 1] = 2;
 	return board
 }
 
@@ -306,7 +310,7 @@ io.sockets.on("connection",function(socket){
 			// Initiate player 2
 			socket.join(data.room);
 			socket.set("room", data.room);
-			socket.set("pid", -1);
+			socket.set("pid", 2);
 			socket.set("color", "#e74c3c");
 			socket.set("preview",[]);
 			socket.set("ready",true);
