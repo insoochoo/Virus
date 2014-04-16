@@ -77,7 +77,6 @@ $(document).ready(function() {
 		socket.emit("click", { row : $(this).data("row"), column : $(this).data("column") });
 	});
 	var count=0;
-
 	$(".box").mouseenter(function(){
 		socket.emit("hover", {hover:1, row : $(this).data("row"), column : $(this).data("column") })
 	});

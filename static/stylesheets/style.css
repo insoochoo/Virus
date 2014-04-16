@@ -10,6 +10,11 @@ body {
   margin-bottom: 60px;
   background-color: #f6f7f8;
 }
+
+*:focus {
+    outline: 0;
+}
+
 #footer {
   position: absolute;
   bottom: 0;
@@ -18,6 +23,11 @@ body {
   min-width: 1000px;
   height: 60px;
   background-color: #34495e;
+}
+
+.shareLink {
+    display: inline-block;
+    margin-left: 10px;
 }
 
 .topBar ul li {
@@ -91,28 +101,26 @@ code {
 }
 .share-label {
   line-height: 37px;
-  text-align: right;
+  display: inline-block;
+  margin-left: 24px;
 }
 
 .p1-score, .p2-score{
-  padding:0 20px;
-  height:90px;
-  width: 200px;
+  display: inline-block;
+  width: 50%;
   background-color:#f1c40f;
-  margin-top: 50px;
   color:#fff;
-  font-size:65px;
-  border-radius: 5px;
+  font-size: 25px;
+  border-radius: 3px;
+  text-align: center;
 }
 .p2-score{
   background-color:#e74c3c;
 }
 .p1-score i, .p2-score i{
-  font-size:42px;
-  vertical-align:middle;
+  font-size: 30px;
   position:relative;
-  display:inline-block;
-  height:51px;
+  top: -4px;
 }
 .text{
   margin-top:80px;
@@ -158,15 +166,15 @@ code {
 }*/
 #shareURL{
   width:250px;
+  border-radius: 5px 0 0 5px;
 }
 span#copy-clipboard, span#help{
-  top:3px;
-  position:absolute;
   display:inline-block;
-  float:right;
-  margin-left:10px;
-  font-size:15px;
+  font-size: 17px;
   color:#1abc9c;
+  background-color: #1abc9c;
+  border-radius: 0 5px 5px 0;
+  top: -1px;
   cursor:pointer;
 }
 span#help{
@@ -214,11 +222,10 @@ span#help{
   clear:both;
 }
 .p1-status, .p2-status{
-  margin-top:20px;
+  margin-top: 3px;
   position:relative;
-  text-align:center;
-  width:126px;
-  float:right;
+  text-align: right;
+  width: auto;
 }
 .p1-status i, .p2-status i{
   color:#eb6b56;
@@ -239,26 +246,30 @@ a, h1{
 
 #content{
   width:100%;
-  height:350px;
-  margin: 0 0 20px 0;
+  height: 415px;
   border: solid 1px #999;
   overflow-y: scroll;
   padding:10px;
+  background-color: white;
 }
 
 .field, #content{
   border:2px solid #ecf0f1;
+  border-top: beige;
 }
 .field{
-  width:100%;
-  height:50px;
+  width: 160px;
+  height: 40px;
   margin-bottom:20px;
 }
 .send{
-   border:none;
    margin-top:0;
-   width:100px;
+   width: 59px;
    padding:3px;
-   float:right;
    font-size:20px;
+   border-radius: 3px;
+   height: 37px;
+   border: 0;
+   margin-right: 1px;
+   border-bottom: 3px solid #c94727;
 }
