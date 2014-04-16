@@ -31,9 +31,9 @@ function generateRoom() {
 };
 function initBoard(){
 	var board=[]
-	for (var i=0; i < 6; i ++){
+	for (var i=0; i < 8; i ++){
 		row=[]
-		for (var j=0; j < 7; j++){
+		for (var j=0; j < 8; j++){
 			row.push(0);
 		}
 		board.push(row);

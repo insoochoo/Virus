@@ -1,8 +1,8 @@
 $(document).ready(function() {
     var content="";
-    for(var i = 0; i < 6; i++){
+    for(var i = 0; i < 8; i++){
         content+="<tr>";
-        for(var j = 0; j < 7; j++) {
+        for(var j = 0; j < 8; j++) {
           content+="<td class='box' data-row="+i+" data-column="+j+"><i class='fa fa-circle'>";
         }
     }
