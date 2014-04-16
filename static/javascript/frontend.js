@@ -86,11 +86,28 @@ $(document).ready(function() {
 
 });
 
+socket.on("available", function(data){
+	for(var i = 0; i < 8; i++){
+		for(var l=0; l < 8; l++){
+			if($(".box[data-row='"+i+"'][data-column='"+l+"']").css("background-color")=="rgb(200,200,200)"){
+				$(".box[data-row='"+i+"'][data-column='"+l+"']").css("background-color","");
+			}
+		}
+	}
+
+	for (var i = 0; i < data.available.length; i++){
+		$(".box[data-row='"+data.available.row+"'][data-column='"+data.available.column+"']").css("background-color","rgb(200,200,200)");
+	}
+})
+
 socket.on("place",function(data){
 	var germ = $(".box[data-row='"+data.row+"'][data-column='"+data.column+"']");
-	germ.css("background-color",data.color);
-	germ.css("opacity",1);
+	//germ.css("background-color",data.color);
 
+	germ.animate({
+      backgroundColor: data.color,
+      opacity:1
+  	}, 300 );
 });
 
 socket.on("preview",function(data){
