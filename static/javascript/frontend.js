@@ -87,21 +87,25 @@ $(document).ready(function() {
 });
 
 socket.on("place",function(data){
-	var germ = $(".box[data-row='"+data.row+"'][data-column='"+data.column+"'] i");
-	germ.css("color",data.color);
+	var germ = $(".box[data-row='"+data.row+"'][data-column='"+data.column+"']");
+	germ.css("background-color",data.color);
 	germ.css("opacity",1);
+
+	for(var i = 0; i < data.infectedGrids.length; i++){
+		
+	}
 });
 
 socket.on("preview",function(data){
-	var box_object = $(".box[data-row='"+data.row+"'][data-column='"+data.column+"'] i");
+	var box_object = $(".box[data-row='"+data.row+"'][data-column='"+data.column+"']");
 	if(box_object.css("opacity") != 1
-		|| box_object.css("color") == "rgb(246, 247, 248)"){
+		|| box_object.css("background-color") == "rgb(255, 255, 255)"){
 		if(data.hover == 1){
-			box_object.css("color",data.color);
+			box_object.css("background-color",data.color);
 			box_object.css("opacity",0.2);
 		}
 		else{
-			box_object.css("color","");
+			box_object.css("background-color","");
 			box_object.css("opacity",1);
 		}
 	}

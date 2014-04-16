@@ -63,13 +63,15 @@ table tr{
   margin:20px;
 }
 table tr td{
-  border: 2px solid #2980b9;
+  border: 2px solid #AEAFAF;
+  border-radius: 5px;
   padding: 0 4px;
+  background: white;
 }
 
 table tr td i{
     font-size: 55px;
-    color: rgb(246, 247, 248);
+    color: rgba(255, 255, 255, 0);
 }
 .center-table {
   margin: 0 auto !important;
