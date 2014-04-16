@@ -18,17 +18,27 @@ body {
   background-color: #34495e;
 }
 
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-brand, .navbar-default .navbar-nav>li>a, .navbar-default .navbar-nav>li>a:focus{
-  color:#fff;
+.topBar ul li {
+    display: inline-block;
+    padding: 5px 16px;
+    margin: 10px;
 }
-.navbar{
-  background-color:#1abc9c;
+
+.topBar {
+    background-color: #0e91a1;
 }
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
-  background-color:#16a085;
+.topBar a {
+    color: white;
 }
-.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus, .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus{
-  color:#16a085;
+
+.topBar .navbar-brand {
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.topBar ul li.active {
+    background-color: #146c78;
+    border-radius: 5px;
 }
 
 table {
@@ -167,16 +177,15 @@ span#help{
 }
 .button{
   position:relative;
-  background-color:#1abc9c;
+  background-color: #f2744a;
   width:250px;
   margin:0 auto;
   margin-top:50px;
   padding:15px;
   color:#fff;
-  -webkit-transition: background-color 0.2s;
-  transition: background-color 0.2s;
   font-size:20px;
   border-radius: 10px;
+  border-bottom: 3px solid #c94727;
 }
 .index h1{
   font-size:60px;
@@ -185,7 +194,9 @@ span#help{
   text-decoration: none;
 }
 .button:hover{
-  background-color:#16a085;
+  top:2px;
+  background-color:rgba(242, 116, 74, 0.95);
+  border-bottom:1px solid #c94727;
 }
 .logo{
   margin-top:30px;
