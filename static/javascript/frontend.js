@@ -95,7 +95,7 @@ socket.on("place",function(data){
 socket.on("preview",function(data){
 	var box_object = $(".box[data-row='"+data.row+"'][data-column='"+data.column+"'] i");
 	if(box_object.css("opacity") != 1
-		|| box_object.css("color") == "rgb(217, 220, 222)"){
+		|| box_object.css("color") == "rgb(246, 247, 248)"){
 		if(data.hover == 1){
 			box_object.css("color",data.color);
 			box_object.css("opacity",0.2);
