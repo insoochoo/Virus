@@ -41,119 +41,6 @@ function initBoard(){
 	return board
 }
 
-function getRow(room, column){
-	var row = 5;
-	// find empty "box" from bottom up
-	while(games[room].board[row][column] != 0 && row > 0){
-		row--;
-	}
-	return row;
-}
-
-function verifyWinner(count, room, pairs){
-	if(count == 4){
-		console.log(pairs);
-		games[room].player1.emit('gameover', {winner: true, message: "You won!", score:[1,0], highlight:pairs, timeout:1700 });
-		games[room].player2.emit('gameover', {winner: false, message: "You lose!", score:[1,0], highlight:pairs, timeout:1700  });
-		return true;
-	}
-	else if(count == -4){
-		console.log(pairs);
-		games[room].player1.emit('gameover', {winner: false, message: "You lose!", score:[0,1], highlight:pairs, timeout:1700  });
-		games[room].player2.emit('gameover', {winner: true, message: "You won!", score:[0,1], highlight:pairs, timeout:1700  });
-		return true;
-	}
-	return false;
-}
-
-function check4(row, column, room){
-	var rStart,rEnd,rStart,cEnd;
-	/*	========================================================== 
-		======================= HORIZONTAL =======================
-		==========================================================  */
-	for(var i=0; i<4; i++){
-		cStart=column-i;
-		cEnd=column+3-i;
-
-		//if 4 boxes within column size
-		if(cStart >= 0 && cEnd < games[room].board[0].length){
-			var count=0;
-			pairs=[]
-			for(var j=cStart; j<=cEnd; j++){
-				count+=games[room].board[row][j];
-				pairs.push([row,j]);
-			}
-
-			if(verifyWinner(count, room, pairs)){
-				return true;
-			}
-		}
-	}
-	/*	========================================================== 
-		======================= VERTICAL =========================
-		==========================================================  */
-	for(var i=0; i<4; i++){
-		rStart=row-i;
-		rEnd=row+3-i;
-
-		//if 4 boxes within column size
-		if(rStart >= 0 && rEnd < games[room].board.length){
-			var count=0;
-			pairs=[]
-			for(var j=rStart; j<=rEnd; j++){
-				count+=games[room].board[j][column];
-				pairs.push([j,column]);
-			}
-
-			if(verifyWinner(count, room, pairs)){
-				return true;
-			}
-		}
-	}
-	/*	========================================================== 
-		======================= HORIZONTAL =========================
-		==========================================================  */
-	
-	var steps=[[1,1],[1,-1]]
-	for(var step=0; step < steps.length; step++){
-		var rStep=steps[step][0];
-		var cStep=steps[step][1];
-		for(var i=0; i<4; i++){
-			rStart=row-i*rStep;
-			rEnd=row+(3-i)*rStep;
-			cStart=column-i*cStep;
-			cEnd=column+(3-i)*cStep;
-
-			//if 4 boxes within column size
-			if((rStart >= 0 && rEnd < games[room].board.length)
-				&& (cStart >= 0 && cEnd < games[room].board[0].length)){
-				var count=0;
-				pairs=[]
-
-				for(var j=0; j<4; j++){
-					count+=games[room].board[rStart+(j*rStep)][cStart+(j*cStep)];
-					pairs.push([rStart+(j*rStep),cStart+(j*cStep)]);
-				}
-
-				if(verifyWinner(count, room, pairs)){
-					return true;
-				}
-			}
-		}
-	}
-	return false;
-}
-
-function checkDraw(room){
-	//console.log(games[room]['board'][0]);
-	for(var i = 0; i < games[room]['board'][0].length; i ++){
-		//console.log(games[room]['board'][0][i]);
-	    if(games[room]['board'][0][i] == 0)
-	        return false;
-	}
-	return true;
-}
-
 // Pass in the current board state(2d array) and the number of the current player (1 or 2)
 // Returns an array of valid coordinates
 function validGrid(currentBoard, currentPlayer) {
@@ -169,12 +56,10 @@ function validGrid(currentBoard, currentPlayer) {
 					currentBoard[x-1][y-1] == currentPlayer ||
 					currentBoard[x][y-1] == currentPlayer ||
 					currentBoard[x+1][y-1] == currentPlayer ) {
-						currentBoard[x][y] = 3;
 						var validGrid = {x:0, y:0};
 						validGrid.x = x;
 						validGrid.y = y;
 						validGridList.push(validGrid);
-
 
 				}
 			}
@@ -333,12 +218,6 @@ io.sockets.on("connection",function(socket){
 			  		[ 2, 2, 2, 2, 2, 2, 2 ],
 			  		[ 2, 2, 2, 2, 2, 2, 2 ],
 			  		[ 2, 2, 2, 2, 2, 2, 2 ] ];*/
-			/*board=[ [ 0, 1, 1, 1, 0, 0, 0 ],
-				  	[ 1, 1, 0, 0, 0, 0, 0 ],
-				  	[ 1, 0, 0, 0, 0, 0, 0 ],
-				  	[ 1, 0, 0, 0, 0, 0, 0 ],
-				  	[ -1, 0, 0, 0, 0, 0, 0 ],
-				  	[ -1, 0, 0, 0, 0, 0, 0 ] ];*/
 
 			console.log(board);
 			// initiate "games" object

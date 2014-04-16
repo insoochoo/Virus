@@ -28,12 +28,6 @@ $(document).ready(function() {
 	'placement': 'left',
 	'container':'body'
 	});
-	/*$(zero.htmlBridge).tooltip({
-		 	"rel" : "tooltip",
-		 	"data-toggle" : "tooltip",
-		 	"data-placement" : "right",
-		 	"title" : "Click me to copy the URL and send to your friend !"
-	});*/
 });
 
 var socket = io.connect(window.location.hostname);
