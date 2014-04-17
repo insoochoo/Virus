@@ -442,19 +442,24 @@ io.sockets.on("connection",function(socket){
 			    			// Broadcast message of germ placement to front end
 			    			io.sockets.in(results[2]).emit("place", { row:data.row, column:data.column, infectedGrids:infectedGridList, color: results[4] });
 			    			
-			    			//Pass the turn to the opponent
-			    			socket.set("turn", false);
-			    			results[1].set("turn", true);
-			    			results[1].emit("message",{ me:false, players: false, color: "#bdc3c7", message : "It's your turn!" });
-							socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Your opponent's turn!" });
-							var opponentValidPlacement = [];
+			    			var opponentValidPlacement = [];
 							if(results[3] == 1) {
 								opponentValidPlacement = validGrid(games[results[2]].board, 2);
 							}
 							else {
 								opponentValidPlacement = validGrid(games[results[2]].board, 1);
 							}
-		    				socket.emit("available", {available: validPlacementList})
+
+							// Send the 
+		    				socket.emit("available", {available: opponentValidPlacement});
+
+			    			
+			    			//Pass the turn to the opponent
+			    			socket.set("turn", false);
+			    			results[1].set("turn", true);
+			    			results[1].emit("message",{ me:false, players: false, color: "#bdc3c7", message : "It's your turn!" });
+							socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Your opponent's turn!" });
+							
 
 
 
