@@ -451,7 +451,7 @@ io.sockets.on("connection",function(socket){
 							}
 
 							// Send the 
-		    				socket.emit("available", {available: opponentValidPlacement});
+		    				results[1].emit("available", {available: opponentValidPlacement});
 
 			    			
 			    			//Pass the turn to the opponent
