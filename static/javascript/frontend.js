@@ -94,14 +94,17 @@ socket.on("updateScore", function(data){
 socket.on("available", function(data){
 	for(var i = 0; i < 8; i++){
 		for(var l=0; l < 8; l++){
-			if($(".box[data-row='"+i+"'][data-column='"+l+"']").css("background-color")=="rgb(200,200,200)"){
+			if($(".box[data-row='"+i+"'][data-column='"+l+"']").css("background-color")=="rgb(240,240,240)"){
 				$(".box[data-row='"+i+"'][data-column='"+l+"']").css("background-color","");
 			}
 		}
 	}
 
 	for (var i = 0; i < data.available.length; i++){
-		$(".box[data-row='"+data.available.row+"'][data-column='"+data.available.column+"']").css("background-color","rgb(200,200,200)");
+		$(".box[data-row='"+data.available[i].x+"'][data-column='"+data.available[i].y+"']").animate({
+  			backgroundColor: "rgb(240,240,240)",
+      		opacity:1
+  		}, 300);
 	}
 })
 
