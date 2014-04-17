@@ -139,126 +139,126 @@ function infectedGrid(currentBoard, row, column, currentPlayer) {
 	}
 
 	var infectedGridList = [];
-	if(row > 0 && row < length - 1 && column > 0 && column < length - 1) {
-		if(currentBoard[row+1][column] == opponent) {
-			var infectedGrid = {x:row+1, y:column};
+	if(column > 0 && column < length - 1 && row > 0 && row < length - 1) {
+		if(currentBoard[column+1][row] == opponent) {
+			var infectedGrid = {x:column+1, y:row};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row+1][column+1] == opponent) {
-			var infectedGrid = {x:row+1, y:column+1};
+		if(currentBoard[column+1][row+1] == opponent) {
+			var infectedGrid = {x:column+1, y:row+1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row][column+1] == opponent) {
-			var infectedGrid = {x:row, y:column+1};
+		if(currentBoard[column][row+1] == opponent) {
+			var infectedGrid = {x:column, y:row+1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row-1][column+1] == opponent) {
-			var infectedGrid = {x:row-1, y:column+1};
+		if(currentBoard[column-1][row+1] == opponent) {
+			var infectedGrid = {x:column-1, y:row+1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row-1][column] == opponent) {
-			var infectedGrid = {x:row-1, y:column};
+		if(currentBoard[column-1][row] == opponent) {
+			var infectedGrid = {x:column-1, y:row};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row-1][column-1] == opponent) {
-			var infectedGrid = {x:row-1, y:column-1};
+		if(currentBoard[column-1][row-1] == opponent) {
+			var infectedGrid = {x:column-1, y:row-1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row][column-1] == opponent) {
-			var infectedGrid = {x:row, y:column-1};
+		if(currentBoard[column][row-1] == opponent) {
+			var infectedGrid = {x:column, y:row-1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row+1][column] == opponent) {
-			var infectedGrid = {x:row+1, y:column};
-			infectedGridList.push(infectedGrid);
-		}
-	}
-	if(row > 0 && row < length - 1 && column == 0) {
-		if(currentBoard[row+1][column] == opponent) {
-			var infectedGrid = {x:row+1, y:column};
-			infectedGridList.push(infectedGrid);
-		}
-		if(currentBoard[row+1][column+1] == opponent) {
-			var infectedGrid = {x:row+1, y:column+1};
-			infectedGridList.push(infectedGrid);
-		}
-		if(currentBoard[row][column+1] == opponent) {
-			var infectedGrid = {x:row, y:column+1};
-			infectedGridList.push(infectedGrid);
-		}
-		if(currentBoard[row-1][column+1] == opponent) {
-			var infectedGrid = {x:row-1, y:column+1};
-			infectedGridList.push(infectedGrid);
-		}
-		if(currentBoard[row-1][column] == opponent) {
-			var infectedGrid = {x:row-1, y:column};
+		if(currentBoard[column+1][row] == opponent) {
+			var infectedGrid = {x:column+1, y:row};
 			infectedGridList.push(infectedGrid);
 		}
 	}
-	if(row > 0 && row < length - 1 && column == length - 1) {
-		if(currentBoard[row-1][column] == opponent) {
-			var infectedGrid = {x:row-1, y:column};
+	if(column > 0 && column < length - 1 && row == 0) {
+		if(currentBoard[column+1][row] == opponent) {
+			var infectedGrid = {x:column+1, y:row};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row-1][column-1] == opponent) {
-			var infectedGrid = {x:row-1, y:column-1};
+		if(currentBoard[column+1][row+1] == opponent) {
+			var infectedGrid = {x:column+1, y:row+1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row][column-1] == opponent) {
-			var infectedGrid = {x:row, y:column-1};
+		if(currentBoard[column][row+1] == opponent) {
+			var infectedGrid = {x:column, y:row+1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row+1][column] == opponent) {
-			var infectedGrid = {x:row+1, y:column};
+		if(currentBoard[column-1][row+1] == opponent) {
+			var infectedGrid = {x:column-1, y:row+1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row+1][column] == opponent) {
-			var infectedGrid = {x:row+1, y:column};
+		if(currentBoard[column-1][row] == opponent) {
+			var infectedGrid = {x:column-1, y:row};
 			infectedGridList.push(infectedGrid);
 		}
 	}
-	if(row == 0 && column > 0 && column < length - 1) {
-		if(currentBoard[row+1][column] == opponent) {
-			var infectedGrid = {x:row+1, y:column};
+	if(column > 0 && column < length - 1 && row == length - 1) {
+		if(currentBoard[column-1][row] == opponent) {
+			var infectedGrid = {x:column-1, y:row};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row+1][column+1] == opponent) {
-			var infectedGrid = {x:row+1, y:column+1};
+		if(currentBoard[column-1][row-1] == opponent) {
+			var infectedGrid = {x:column-1, y:row-1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row][column+1] == opponent) {
-			var infectedGrid = {x:row, y:column+1};
+		if(currentBoard[column][row-1] == opponent) {
+			var infectedGrid = {x:column, y:row-1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row][column-1] == opponent) {
-			var infectedGrid = {x:row, y:column-1};
+		if(currentBoard[column+1][row] == opponent) {
+			var infectedGrid = {x:column+1, y:row};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row+1][column] == opponent) {
-			var infectedGrid = {x:row+1, y:column};
+		if(currentBoard[column+1][row] == opponent) {
+			var infectedGrid = {x:column+1, y:row};
+			infectedGridList.push(infectedGrid);
+		}
+	}
+	if(column == 0 && row > 0 && row < length - 1) {
+		if(currentBoard[column+1][row] == opponent) {
+			var infectedGrid = {x:column+1, y:row};
+			infectedGridList.push(infectedGrid);
+		}
+		if(currentBoard[column+1][row+1] == opponent) {
+			var infectedGrid = {x:column+1, y:row+1};
+			infectedGridList.push(infectedGrid);
+		}
+		if(currentBoard[column][row+1] == opponent) {
+			var infectedGrid = {x:column, y:row+1};
+			infectedGridList.push(infectedGrid);
+		}
+		if(currentBoard[column][row-1] == opponent) {
+			var infectedGrid = {x:column, y:row-1};
+			infectedGridList.push(infectedGrid);
+		}
+		if(currentBoard[column+1][row] == opponent) {
+			var infectedGrid = {x:column+1, y:row};
 			infectedGridList.push(infectedGrid);
 		}
 
 	}
-	if(row == length - 1 && column > 0 && column < length - 1) {
-		if(currentBoard[row][column+1] == opponent) {
-			var infectedGrid = {x:row, y:column+1};
+	if(column == length - 1 && row > 0 && row < length - 1) {
+		if(currentBoard[column][row+1] == opponent) {
+			var infectedGrid = {x:column, y:row+1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row-1][column+1] == opponent) {
-			var infectedGrid = {x:row-1, y:column+1};
+		if(currentBoard[column-1][row+1] == opponent) {
+			var infectedGrid = {x:column-1, y:row+1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row-1][column] == opponent) {
-			var infectedGrid = {x:row-1, y:column};
+		if(currentBoard[column-1][row] == opponent) {
+			var infectedGrid = {x:column-1, y:row};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row-1][column-1] == opponent) {
-			var infectedGrid = {x:row-1, y:column-1};
+		if(currentBoard[column-1][row-1] == opponent) {
+			var infectedGrid = {x:column-1, y:row-1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[row][column-1] == opponent) {
-			var infectedGrid = {x:row, y:column-1};
+		if(currentBoard[column][row-1] == opponent) {
+			var infectedGrid = {x:column, y:row-1};
 			infectedGridList.push(infectedGrid);
 		}
 	}
