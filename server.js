@@ -149,126 +149,126 @@ function infectedGrid(currentBoard, row, column, currentPlayer) {
 	}
 
 	var infectedGridList = [];
-	if(column > 0 && column < length - 1 && row > 0 && row < length - 1) {
-		if(currentBoard[column+1][row] == opponent) {
-			var infectedGrid = {x:column+1, y:row};
+	if(row > 0 && row < length - 1 && column > 0 && column < length - 1) {
+		if(currentBoard[row+1][column] == opponent) {
+			var infectedGrid = {x:row+1, y:column};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column+1][row+1] == opponent) {
-			var infectedGrid = {x:column+1, y:row+1};
+		if(currentBoard[row+1][column+1] == opponent) {
+			var infectedGrid = {x:row+1, y:column+1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column][row+1] == opponent) {
-			var infectedGrid = {x:column, y:row+1};
+		if(currentBoard[row][column+1] == opponent) {
+			var infectedGrid = {x:row, y:column+1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column-1][row+1] == opponent) {
-			var infectedGrid = {x:column-1, y:row+1};
+		if(currentBoard[row-1][column+1] == opponent) {
+			var infectedGrid = {x:row-1, y:column+1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column-1][row] == opponent) {
-			var infectedGrid = {x:column-1, y:row};
+		if(currentBoard[row-1][column] == opponent) {
+			var infectedGrid = {x:row-1, y:column};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column-1][row-1] == opponent) {
-			var infectedGrid = {x:column-1, y:row-1};
+		if(currentBoard[row-1][column-1] == opponent) {
+			var infectedGrid = {x:row-1, y:column-1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column][row-1] == opponent) {
-			var infectedGrid = {x:column, y:row-1};
+		if(currentBoard[row][column-1] == opponent) {
+			var infectedGrid = {x:row, y:column-1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column+1][row] == opponent) {
-			var infectedGrid = {x:column+1, y:row};
-			infectedGridList.push(infectedGrid);
-		}
-	}
-	if(column > 0 && column < length - 1 && row == 0) {
-		if(currentBoard[column+1][row] == opponent) {
-			var infectedGrid = {x:column+1, y:row};
-			infectedGridList.push(infectedGrid);
-		}
-		if(currentBoard[column+1][row+1] == opponent) {
-			var infectedGrid = {x:column+1, y:row+1};
-			infectedGridList.push(infectedGrid);
-		}
-		if(currentBoard[column][row+1] == opponent) {
-			var infectedGrid = {x:column, y:row+1};
-			infectedGridList.push(infectedGrid);
-		}
-		if(currentBoard[column-1][row+1] == opponent) {
-			var infectedGrid = {x:column-1, y:row+1};
-			infectedGridList.push(infectedGrid);
-		}
-		if(currentBoard[column-1][row] == opponent) {
-			var infectedGrid = {x:column-1, y:row};
+		if(currentBoard[row+1][column-1] == opponent) {
+			var infectedGrid = {x:row+1, y:column-1};
 			infectedGridList.push(infectedGrid);
 		}
 	}
-	if(column > 0 && column < length - 1 && row == length - 1) {
-		if(currentBoard[column-1][row] == opponent) {
-			var infectedGrid = {x:column-1, y:row};
+	if(row > 0 && row < length - 1 && column == 0) {
+		if(currentBoard[row+1][column] == opponent) {
+			var infectedGrid = {x:row+1, y:column};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column-1][row-1] == opponent) {
-			var infectedGrid = {x:column-1, y:row-1};
+		if(currentBoard[row+1][column+1] == opponent) {
+			var infectedGrid = {x:row+1, y:column+1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column][row-1] == opponent) {
-			var infectedGrid = {x:column, y:row-1};
+		if(currentBoard[row][column+1] == opponent) {
+			var infectedGrid = {x:row, y:column+1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column+1][row] == opponent) {
-			var infectedGrid = {x:column+1, y:row};
+		if(currentBoard[row-1][column+1] == opponent) {
+			var infectedGrid = {x:row-1, y:column+1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column+1][row] == opponent) {
-			var infectedGrid = {x:column+1, y:row};
+		if(currentBoard[row-1][column] == opponent) {
+			var infectedGrid = {x:row-1, y:column};
 			infectedGridList.push(infectedGrid);
 		}
 	}
-	if(column == 0 && row > 0 && row < length - 1) {
-		if(currentBoard[column+1][row] == opponent) {
-			var infectedGrid = {x:column+1, y:row};
+	if(row > 0 && row < length - 1 && column == length - 1) {
+		if(currentBoard[row-1][column] == opponent) {
+			var infectedGrid = {x:row-1, y:column};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column+1][row+1] == opponent) {
-			var infectedGrid = {x:column+1, y:row+1};
+		if(currentBoard[row-1][column-1] == opponent) {
+			var infectedGrid = {x:row-1, y:column-1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column][row+1] == opponent) {
-			var infectedGrid = {x:column, y:row+1};
+		if(currentBoard[row][column-1] == opponent) {
+			var infectedGrid = {x:row, y:column-1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column][row-1] == opponent) {
-			var infectedGrid = {x:column, y:row-1};
+		if(currentBoard[row+1][column-1] == opponent) {
+			var infectedGrid = {x:row+1, y:column-1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column+1][row] == opponent) {
-			var infectedGrid = {x:column+1, y:row};
+		if(currentBoard[row+1][column] == opponent) {
+			var infectedGrid = {x:row+1, y:column};
+			infectedGridList.push(infectedGrid);
+		}
+	}
+	if(row == 0 && column > 0 && column < length - 1) {
+		if(currentBoard[row+1][column] == opponent) {
+			var infectedGrid = {x:row+1, y:column};
+			infectedGridList.push(infectedGrid);
+		}
+		if(currentBoard[row+1][column+1] == opponent) {
+			var infectedGrid = {x:row+1, y:column+1};
+			infectedGridList.push(infectedGrid);
+		}
+		if(currentBoard[row][column+1] == opponent) {
+			var infectedGrid = {x:row, y:column+1};
+			infectedGridList.push(infectedGrid);
+		}
+		if(currentBoard[row][column-1] == opponent) {
+			var infectedGrid = {x:row, y:column-1};
+			infectedGridList.push(infectedGrid);
+		}
+		if(currentBoard[row+1][column-1] == opponent) {
+			var infectedGrid = {x:row+1, y:column-1};
 			infectedGridList.push(infectedGrid);
 		}
 
 	}
-	if(column == length - 1 && row > 0 && row < length - 1) {
-		if(currentBoard[column][row+1] == opponent) {
-			var infectedGrid = {x:column, y:row+1};
+	if(row == length - 1 && column > 0 && column < length - 1) {
+		if(currentBoard[row][column+1] == opponent) {
+			var infectedGrid = {x:row, y:column+1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column-1][row+1] == opponent) {
-			var infectedGrid = {x:column-1, y:row+1};
+		if(currentBoard[row-1][column+1] == opponent) {
+			var infectedGrid = {x:row-1, y:column+1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column-1][row] == opponent) {
-			var infectedGrid = {x:column-1, y:row};
+		if(currentBoard[row-1][column] == opponent) {
+			var infectedGrid = {x:row-1, y:column};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column-1][row-1] == opponent) {
-			var infectedGrid = {x:column-1, y:row-1};
+		if(currentBoard[row-1][column-1] == opponent) {
+			var infectedGrid = {x:row-1, y:column-1};
 			infectedGridList.push(infectedGrid);
 		}
-		if(currentBoard[column][row-1] == opponent) {
-			var infectedGrid = {x:column, y:row-1};
+		if(currentBoard[row][column-1] == opponent) {
+			var infectedGrid = {x:row, y:column-1};
 			infectedGridList.push(infectedGrid);
 		}
 	}
@@ -434,12 +434,11 @@ io.sockets.on("connection",function(socket){
 			    			// Place germ here
 			    			games[results[2]].board[row][column] = results[3];
 
-			    			// Change board state
+			    			// Change board state according to infected grid
 			    			var infectedGridList = infectedGrid(currentBoard, row, column, results[3]);
-			    			for(var i = 0; i < infectedGridList; i++) {
+			    			for(var i = 0; i < infectedGridList.length; i++) {
 			    				games[results[2]].board[infectedGridList[i].x][infectedGridList[i].y] = results[3];
 			    			}
-
 			    			// Broadcast message of germ placement to front end
 			    			io.sockets.in(results[2]).emit("place", { row:data.row, column:data.column, infectedGrids:infectedGridList, color: results[4] });
 			    			
@@ -448,7 +447,14 @@ io.sockets.on("connection",function(socket){
 			    			results[1].set("turn", true);
 			    			results[1].emit("message",{ me:false, players: false, color: "#bdc3c7", message : "It's your turn!" });
 							socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Your opponent's turn!" });
-		    				
+							var opponentValidPlacement = [];
+							if(results[3] == 1) {
+								opponentValidPlacement = validGrid(games[results[2]].board, 2);
+							}
+							else {
+								opponentValidPlacement = validGrid(games[results[2]].board, 1);
+							}
+		    				socket.emit("available", {available: validPlacementList})
 
 
 
