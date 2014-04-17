@@ -113,6 +113,13 @@ socket.on("place",function(data){
       backgroundColor: data.color,
       opacity:1
   	}, 300 );
+
+  	for (var i = 0; i < data.infectedGrids.length; i++){
+  		$(".box[data-row='"+data.infectedGrids[i].x+"'][data-column='"+data.infectedGrids[i].y+"']").animate({
+  			backgroundColor: data.color,
+      		opacity:1
+  		}, 300);
+  	}
 });
 
 socket.on("preview",function(data){
