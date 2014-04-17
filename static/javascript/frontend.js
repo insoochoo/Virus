@@ -73,7 +73,6 @@ socket.on("notify",function(data){
 $(document).ready(function() {
 	$(".box").click(function(){
 		socket.emit("click", { row : $(this).data("row"), column : $(this).data("column") });
-		clearAvailable();
 	});
 	var count=0;
 	$(".box").mouseenter(function(){
@@ -93,8 +92,10 @@ socket.on("updateScore", function(data){
 function clearAvailable(){
 	for(var i = 0; i < 8; i++){
 		for(var l=0; l < 8; l++){
-			if($(".box[data-row='"+i+"'][data-column='"+l+"']").css("background-color")=="rgb(240, 240, 240)"){
-				$(".box[data-row='"+i+"'][data-column='"+l+"']").css("background-color","");
+			if($(".box[data-row='"+i+"'][data-column='"+l+"']").css("background-color")=="rgb(225, 225, 225)"){
+				$(".box[data-row='"+i+"'][data-column='"+l+"']").animate({
+		  			backgroundColor: ""
+		  		}, 300);
 			}
 		}
 	}
@@ -104,7 +105,7 @@ socket.on("available", function(data){
 	clearAvailable();
 	for (var i = 0; i < data.available.length; i++){
 		$(".box[data-row='"+data.available[i].x+"'][data-column='"+data.available[i].y+"']").animate({
-  			backgroundColor: "rgb(240,240,240)",
+  			backgroundColor: "rgb(225,225,225)",
       		opacity:1
   		}, 300);
 	}
@@ -117,7 +118,9 @@ socket.on("place",function(data){
 	germ.animate({
       backgroundColor: data.color,
       opacity:1
-  	}, 300 );
+  	}, 300, function (){
+  		  clearAvailable();
+  	});
 
   	for (var i = 0; i < data.infectedGrids.length; i++){
   		$(".box[data-row='"+data.infectedGrids[i].x+"'][data-column='"+data.infectedGrids[i].y+"']").animate({
