@@ -364,6 +364,11 @@ io.sockets.on("connection",function(socket){
 			io.sockets.in(data.room).emit("place", {row:length - 1, column:length - 1, infectedGrid:[], color:player1Color});
 			io.sockets.in(data.room).emit("place", {row:length - 1, column:0, infectedGrids:[], color:player2Color});
 			io.sockets.in(data.room).emit("place", {row:0, column:length - 1, infectedGrids:[], color:player2Color});
+
+			//Send the available grids to player 1
+			var available = validGrid(board, 1);
+			games[data.room].player1.emit("available",{available: available});
+
 			//set initial scores
 			io.sockets.in(data.room).emit("updateScore", {p1 :2, p2:2});
 		}
