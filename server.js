@@ -127,6 +127,16 @@ function validGrid(currentBoard, currentPlayer) {
 	return validGridList;
 }
 
+// Counts germs
+function countGerms(currentBoard, currentPlayer) {
+	var count = 0;
+	for (var i= 0; i<8; i++)
+		for(var l=0; l<8; l++)
+			if(currentBoard[i][l] == currentPlayer)
+				count ++
+	return count;
+}
+
 // Takes in the current board state, the row and column of the germ placement, and the id of the current player
 // Returns a list of grids that are infected by the germ placement
 function infectedGrid(currentBoard, row, column, currentPlayer) {
@@ -293,7 +303,7 @@ app.get("/about",function(req, res){
 
 
 io.sockets.on("connection",function(socket){
-	socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "WELCOME! You can chat with your opponent here." });
+	socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Welcome to VIRUS" });
 	socket.on("join",function(data){
 		console.log("server room:" + data.room);
 		
@@ -311,7 +321,7 @@ io.sockets.on("connection",function(socket){
 			socket.join(data.room);
 			socket.set("room", data.room);
 			socket.set("pid", 2);
-			socket.set("color", "#e74c3c");
+			socket.set("color", "#F56363");
 			socket.set("preview",[]);
 			socket.set("ready",true);
 			// Set opponents
@@ -334,7 +344,7 @@ io.sockets.on("connection",function(socket){
 			io.sockets.in(data.room).emit("message",{ me: false, players: false, color: "#bdc3c7", message : "Player 2 has joined the game." });
 
 			games[data.room].player1.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "It's your turn!" });
-			socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Waiting for your opponent to make a move..." });
+			socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Your opponent's turn!" });
 		    		
 			//Notify players
 			games[data.room].player1.emit("notify",{connected:1, turn : true});
@@ -354,6 +364,8 @@ io.sockets.on("connection",function(socket){
 			io.sockets.in(data.room).emit("place", {row:length - 1, column:length - 1, infectedGrid:[], color:player1Color});
 			io.sockets.in(data.room).emit("place", {row:length - 1, column:0, infectedGrids:[], color:player2Color});
 			io.sockets.in(data.room).emit("place", {row:0, column:length - 1, infectedGrids:[], color:player2Color});
+			//set initial scores
+			io.sockets.in(data.room).emit("updateScore", {p1 :2, p2:2});
 		}
 
 		// Initiate player 1 and game table
@@ -362,7 +374,7 @@ io.sockets.on("connection",function(socket){
 			socket.join(data.room);
 			socket.set("room", data.room);
 			socket.set("pid", 1);
-			socket.set("color", "#f1c40f");
+			socket.set("color", "#FDD761");
 			socket.set("turn", false);
 			socket.set("preview", []);
 			socket.set("ready",true);
@@ -434,7 +446,16 @@ io.sockets.on("connection",function(socket){
 			    			//Pass the turn to the opponent
 			    			socket.set("turn", false);
 			    			results[1].set("turn", true);
+			    			results[1].emit("message",{ me:false, players: false, color: "#bdc3c7", message : "It's your turn!" });
+							socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Your opponent's turn!" });
+		    				
 
+
+
+		    				var p1Count = countGerms(games[results[2]].board, 1);
+		    				var p2Count = countGerms(games[results[2]].board, 2);
+		    				//console.log(p1Count + " " + p2Count);
+		    				io.sockets.in(results[2]).emit("updateScore", {p1 : p1Count, p2: p2Count});
 
 			    		}
 			    		else {
@@ -444,7 +465,7 @@ io.sockets.on("connection",function(socket){
 				    }
 			    	else{
 			    		console.log(results[3] + " opponent's turn");
-			    		socket.emit("errorMessage", { message : "Don't be hasty! it's your opponent's turn." });
+			    		socket.emit("errorMessage", { message : "It's your opponent's turn." });
 			    	}
 			    }
 			    else{
@@ -454,7 +475,7 @@ io.sockets.on("connection",function(socket){
 		    }
 		    else{
 		    	console.log("player 2 hasn't joined yet");
-		    	socket.emit("errorMessage", { message : "Stop! Your opponent hasn't joined yet." });
+		    	socket.emit("errorMessage", { message : "Please wait until your opponent arrives" });
 		    }
 	    });
 	});

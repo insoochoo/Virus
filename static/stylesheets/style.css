@@ -63,14 +63,14 @@ table tr{
   margin:20px;
 }
 table tr td{
-  border: 2px solid #AEAFAF;
+  border: 2px solid #C9C9C9;
   border-radius: 5px;
   padding: 0 4px;
   background: white;
 }
 
 table tr td i{
-    font-size: 55px;
+    font-size: 52px;
     color: rgba(255, 255, 255, 0);
 }
 .center-table {
@@ -78,7 +78,7 @@ table tr td i{
   float: none !important;
 }
 body > .container {
-  padding: 60px 15px 0;
+  padding: 50px 0 30px 0;
 }
 .container .text-muted {
   margin: 20px 0;
@@ -99,6 +99,7 @@ code {
 }
 #room-url{
   margin-top:30px;
+  text-align: center;
 }
 .share-label {
   line-height: 37px;
@@ -108,15 +109,18 @@ code {
 
 .p1-score, .p2-score{
   display: inline-block;
-  width: 50%;
-  background-color:#f1c40f;
+  width: 125px;
+  margin-left: 2px;
+  border-bottom: 2px solid #DBBA53;
   color:#fff;
   font-size: 25px;
   border-radius: 3px;
   text-align: center;
+  background-color: #FDD761;
 }
 .p2-score{
-  background-color:#e74c3c;
+  background-color: #F56363;
+  border-bottom: 2px #DF5656 solid;
 }
 .p1-score i, .p2-score i{
   font-size: 30px;
@@ -166,12 +170,14 @@ code {
   cursor:pointer;
 }*/
 #shareURL{
-  width:250px;
+  width: 275px;
   border-radius: 5px 0 0 5px;
+  background-color: white;
 }
 span#copy-clipboard, span#help{
   display:inline-block;
   font-size: 17px;
+  width: 65px;
   color:#1abc9c;
   background-color: #1abc9c;
   border-radius: 0 5px 5px 0;
@@ -245,6 +251,11 @@ a, h1{
   letter-spacing: 1px;
 }
 
+#board {
+  margin-top: 17px;
+  padding-right: 0px;
+}
+
 #content{
   width:100%;
   height: 415px;
@@ -259,7 +270,7 @@ a, h1{
   border-top: beige;
 }
 .field{
-  width: 160px;
+  width: 196px;
   height: 40px;
   margin-bottom:20px;
 }
