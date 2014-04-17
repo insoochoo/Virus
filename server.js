@@ -472,6 +472,26 @@ io.sockets.on("connection",function(socket){
 		    				//console.log(p1Count + " " + p2Count);
 		    				io.sockets.in(results[2]).emit("updateScore", {p1 : p1Count, p2: p2Count});
 
+		    				if (p1Count+p2Count != 64 && opponentValidPlacement.length == 0){
+		    					results[1].emit("gameover", {message:"You Lost!"});
+		    					socket.emit("gameover", {message:"You Won!"});
+		    				}
+		    				else if (p1Count+p2Count == 64){
+		    					if (p1Count > p2Count && results[3] == 1 || p2Count > p1Count && results[3]==2){
+		    						results[1].emit("gameover", {message:"You Lost!"});
+		    						socket.emit("gameover", {message:"You Won!"});
+		    					}
+		    					else if (p1Count > p2Count && results[3] == 2 || p2Count > p1Count && results[3] == 1){
+		    						socket.emit("gameover", {message:"You Lost!"});
+		    						results[1].emit("gameover", {message:"You Won!"});
+		    					}
+		    					else if (p1Count == p2Count){
+		    						socket.emit("gameover", {message:"Draw!"});
+		    						results[1].emit("gameover", {message:"Draw!"});
+		    					}
+		    				}
+
+
 			    		}
 			    		else {
 			    			// You can't place germ here
@@ -572,7 +592,16 @@ io.sockets.on("connection",function(socket){
 				    	}
 				    	// notify current socket player
 				    	socket.emit("notify",{connected:1, turn : results[0]});
-	    				
+	    				socket.emit("clearboard");
+	    				io.sockets.in(games[results[1]]).emit("place", {row:0, column:0, infectedGrids:[], color:games[results[1]].player1.color});
+						io.sockets.in(games[results[1]]).emit("place", {row:length - 1, column:length - 1, infectedGrid:[], color:games[results[1]].player1.color});
+						io.sockets.in(games[results[1]]).emit("place", {row:length - 1, column:0, infectedGrids:[], color:games[results[1]].player2.color});
+						io.sockets.in(games[results[1]]).emit("place", {row:0, column:length - 1, infectedGrids:[], color:games[results[1]].player2.color});
+
+						//Send the available grids to player 1
+						var available = validGrid(board, 1);
+						games[results[1]].player1.emit("available",{available: available});
+
 	    				// notify opponent
 	    				results[2].get("turn",function(err, turn){
 				    		results[2].emit("notify",{connected:1, turn : turn});

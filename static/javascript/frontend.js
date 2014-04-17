@@ -89,6 +89,16 @@ socket.on("updateScore", function(data){
 	$(".p2-score span").html(data.p2);
 })
 
+socket.on("clearboard", function(){
+	for(var i = 0; i < 8; i++){
+		for(var l=0; l < 8; l++){
+			$(".box[data-row='"+i+"'][data-column='"+l+"']").animate({
+	  			backgroundColor: ""
+	  		}, 300);
+		}
+	}
+})
+
 function clearAvailable(){
 	for(var i = 0; i < 8; i++){
 		for(var l=0; l < 8; l++){
@@ -147,39 +157,19 @@ socket.on("preview",function(data){
 
 socket.on("gameover",function(data){
 	socket.emit("reset_ready");
-	var count=0;
-	setTimeout(function(){
-		var stopinterval=setInterval(function(){
-			if(count == 4){
-				clearInterval(stopinterval);
-			}
-			//alert(data.highlight[count]);
-			pair=data.highlight[count];
-			$(".box[data-row='"+pair[0]+"'][data-column='"+pair[1]+"'] i").css("color","#2ecc71");
-			count++;
-		},200);
- 	},150);
-	p1=parseInt($(".p1-score span").html())+data.score[0];
-	p2=parseInt($(".p2-score span").html())+data.score[1];
-	$(".p1-score span").html(p1);
-	$(".p2-score span").html(p2);
-
-	setTimeout(function(){
-		alertify.set({ labels: {
-		    ok     : "Play again!",
-		    cancel : "Leave Room"
-		} });
-		alertify.confirm(data.message, function(e){
-			if(e) {
-				$("td i").css("color","");
-	            socket.emit("reset");
-	        }
-	        else {
-	       		socket.emit("disconnect");
-	            window.location = '/exit';
-	        }
-		}, 'confirm');
-	},data.timeout);
+	alertify.set({ labels: {
+	    ok     : "Play again!",
+	    cancel : "Leave Room"
+	} });
+	alertify.confirm(data.message, function(e){
+		if(e) {
+            socket.emit("reset");
+        }
+        else {
+       		socket.emit("disconnect");
+            window.location = '/exit';
+        }
+	}, 'confirm');
 });
 
 socket.on("leave",function(){

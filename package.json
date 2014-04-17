@@ -1,0 +1,29 @@
+{
+  "name": "virus",
+  "version": "0.0.0",
+  "description": "Virus Nodejs game",
+  "main": "server.js",
+  "dependencies": {
+    "async": "^0.7.0",
+    "jade": "^1.3.1",
+    "express": "^4.0.0",
+    "socket.io": "^0.9.16",
+    "logfmt": "^1.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://insoochoo_@bitbucket.org/node_virus/virus.git"
+  },
+  "keywords": [
+    "virus",
+    "nodejs",
+    "heroku"
+  ],
+  "author": "Virus",
+  "license": "MIT"
+}
