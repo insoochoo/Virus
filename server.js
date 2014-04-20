@@ -303,6 +303,7 @@ app.get("/about",function(req, res){
 
 
 io.sockets.on("connection",function(socket){
+	console.log("connection detected");
 	socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Welcome to VIRUS" });
 	socket.on("join",function(data){
 		console.log("server room:" + data.room);
