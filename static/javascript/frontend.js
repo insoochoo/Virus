@@ -111,8 +111,11 @@ function clearAvailable(){
 	}
 }
 
-socket.on("available", function(data){
+socket.on("clearAvailable", function(data){
 	clearAvailable();
+}
+
+socket.on("available", function(data){
 	for (var i = 0; i < data.available.length; i++){
 		$(".box[data-row='"+data.available[i].x+"'][data-column='"+data.available[i].y+"']").animate({
   			backgroundColor: "rgb(225,225,225)",
