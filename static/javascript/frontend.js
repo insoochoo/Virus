@@ -105,7 +105,7 @@ function clearAvailable(){
 			if($(".box[data-row='"+i+"'][data-column='"+l+"']").css("background-color")=="rgb(225, 225, 225)"){
 				$(".box[data-row='"+i+"'][data-column='"+l+"']").animate({
 		  			backgroundColor: ""
-		  		}, 300);
+		  		});
 			}
 		}
 	}

@@ -593,7 +593,7 @@ io.sockets.on("connection",function(socket){
 				    	}
 				    	// notify current socket player
 				    	socket.emit("notify",{connected:1, turn : results[0]});
-	    				socket.emit("clearboard");
+	    				io.sockets.in(games[results[1]]).emit("clearboard");
 	    				io.sockets.in(games[results[1]]).emit("place", {row:0, column:0, infectedGrids:[], color:games[results[1]].player1.color});
 						io.sockets.in(games[results[1]]).emit("place", {row:length - 1, column:length - 1, infectedGrid:[], color:games[results[1]].player1.color});
 						io.sockets.in(games[results[1]]).emit("place", {row:length - 1, column:0, infectedGrids:[], color:games[results[1]].player2.color});
