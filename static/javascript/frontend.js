@@ -94,7 +94,7 @@ socket.on("clearboard", function(){
 		for(var l=0; l < 8; l++){
 			$(".box[data-row='"+i+"'][data-column='"+l+"']").animate({
 	  			backgroundColor: ""
-	  		}, 300);
+	  		});
 		}
 	}
 })
@@ -113,7 +113,7 @@ function clearAvailable(){
 
 socket.on("clearAvailable", function(data){
 	clearAvailable();
-}
+})
 
 socket.on("available", function(data){
 	for (var i = 0; i < data.available.length; i++){

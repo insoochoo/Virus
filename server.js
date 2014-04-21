@@ -583,7 +583,6 @@ io.sockets.on("connection",function(socket){
 	    			if(ready){
 	    				console.log("ready");
 				    	games[results[1]].ended=false;
-
 				    	if(results[0]){
 							socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "It's your turn!" });
 			    			results[2].emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Waiting for your opponent to make a move..." });
