@@ -112,6 +112,7 @@ function clearAvailable(){
 }
 
 socket.on("available", function(data){
+	clearAvailable();
 	for (var i = 0; i < data.available.length; i++){
 		$(".box[data-row='"+data.available[i].x+"'][data-column='"+data.available[i].y+"']").animate({
   			backgroundColor: "rgb(225,225,225)",
@@ -127,8 +128,6 @@ socket.on("place",function(data){
 	germ.animate({
       backgroundColor: data.color,
       opacity:1
-  	}, 300, function (){
-  		  clearAvailable();
   	});
 
   	for (var i = 0; i < data.infectedGrids.length; i++){
