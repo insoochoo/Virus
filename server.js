@@ -437,6 +437,7 @@ io.sockets.on("connection",function(socket){
 			    			}
 			    		}	
 			    		if(isValid == true) {
+			    			socket.emit("clearAvailable");
 			    			// Place germ here
 			    			games[results[2]].board[row][column] = results[3];
 
@@ -457,7 +458,6 @@ io.sockets.on("connection",function(socket){
 							}
 
 							// Send the 
-							socket.emit("clearAvailable");
 		    				results[1].emit("available", {available: opponentValidPlacement});
 			    			
 			    			//Pass the turn to the opponent
