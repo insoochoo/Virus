@@ -451,9 +451,6 @@ io.sockets.on("connection",function(socket){
 					    			socket.emit("clearAvailable");
 					    			// Place germ here
 					    			games[results[2]].board[row][column] = results[3];
-
-					    			
-
 					    			
 					    			// Change board state according to infected grid
 					    			var infectedGridList = infectedGrid(currentBoard, row, column, results[3]);
@@ -485,35 +482,48 @@ io.sockets.on("connection",function(socket){
 									
 
 
-
 				    				var p1Count = countGerms(games[results[2]].board, 1);
 				    				var p2Count = countGerms(games[results[2]].board, 2);
 				    				//console.log(p1Count + " " + p2Count);
 				    				io.sockets.in(results[2]).emit("updateScore", {p1 : p1Count, p2: p2Count});
-				    				
 
-				    				//TODO: Update win condition checking
-				    				/*if (p1Count+p2Count != 64 && opponentValidPlacement.length == 0){
-				    					results[1].emit("gameover", {message:"You Lost!"});
-				    					socket.emit("gameover", {message:"You Won!"});
-				    				}
-				    				else*/ 
-				    				if (p1Count+p2Count == 64){
-				    					if (p1Count > p2Count && results[3] == 1 || p2Count > p1Count && results[3]==2){
-				    						results[1].emit("gameover", {message:"You Lost!"});
-				    						socket.emit("gameover", {message:"You Won!"});
-				    					}
-				    					else if (p1Count > p2Count && results[3] == 2 || p2Count > p1Count && results[3] == 1){
-				    						socket.emit("gameover", {message:"You Lost!"});
-				    						results[1].emit("gameover", {message:"You Won!"});
-				    					}
-				    					else if (p1Count == p2Count){
-				    						socket.emit("gameover", {message:"Draw!"});
-				    						results[1].emit("gameover", {message:"Draw!"});
+				    				var opponentPid;
+				    				if(results[3] == 1)
+				    					opponentPid = 2;
+				    				else 
+				    					opponentPid = 1;
+
+				    				var possibleSpots = 0;
+				    				for (var a = 2; a < 10; a++){
+				    					for (var b = 2; b < 10; b++){
+				    						if (currentBoard[a][b] == opponentPid){
+				    							possibleSpots += validGrid(currentBoard, opponentPid, a, b).length;
+				    						}
 				    					}
 				    				}
-
-
+				    				console.log("possible spot counts : " + possibleSpots);
+				    				if (possibleSpots == 0){
+				    					if (p1Count > p2Count && pid == 1){
+					    					results[1].emit("gameover", {message:"You Lost!"});
+						    				socket.emit("gameover", {message:"You Won!"});
+					    				}
+					    				else if (p1Count > p2Count && pid == 2){
+					    					results[1].emit("gameover", {message:"You Won!"});
+						    				socket.emit("gameover", {message:"You Lost!"});
+					    				}
+					    				else if (p1Count < p2Count && pid == 1){
+					    					results[1].emit("gameover", {message:"You Won!"});
+						    				socket.emit("gameover", {message:"You Lost!"});
+					    				}
+					    				else if (p1Count < p2Count && pid == 2){
+					    					results[1].emit("gameover", {message:"You Lost!"});
+						    				socket.emit("gameover", {message:"You Won!"});
+					    				}
+					    				else{
+					    					results[1].emit("gameover", {message:"Draw!"});
+						    				socket.emit("gameover", {message:"Draw!"});
+					    				}
+				    				}
 					    		}
 					    		else {
 					    			// You can't place germ here
