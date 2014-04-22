@@ -147,6 +147,28 @@ socket.on("place",function(data){
   	}
 });
 
+socket.on("move",function(data){
+	var germ = $(".box[data-row='"+data.row+"'][data-column='"+data.column+"']");
+	var prevGerm = $(".box[data-row='"+data.prevRow+"'][data-column='"+data.prevCol+"']");
+	//germ.css("background-color",data.color);
+	prevGerm.animate({
+		backgroundColor: "",
+		opacity:1
+	});
+	 germ.animate({
+	      backgroundColor: data.color,
+	      opacity:1
+	});
+
+  	for (var i = 0; i < data.infectedGrids.length; i++){
+  		$(".box[data-row='"+data.infectedGrids[i].x+"'][data-column='"+data.infectedGrids[i].y+"']").animate({
+  			backgroundColor: data.color,
+      		opacity:1
+  		}, 300);
+  	}
+});
+
+
 socket.on("preview",function(data){
 	var box_object = $(".box[data-row='"+data.row+"'][data-column='"+data.column+"']");
 	if(box_object.css("opacity") != 1

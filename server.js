@@ -66,7 +66,6 @@ function validGrid(currentBoard, currentPlayer, selectedX, selectedY) {
 		for(var j = 0; j < 5; j++) {
 			if(currentBoard[selectedX - 2 + i][selectedY - 2 + j] == 0) {
 				var validGrid = {x:selectedX - 2 + i, y:selectedY - 2 + j};
-				console.log("validGrid:" + validGrid.x +" " + validGrid.y);
 				validGridList.push(validGrid)
 			}
 		}
@@ -412,8 +411,6 @@ io.sockets.on("connection",function(socket){
 			socket.get.bind(this, "selectedY")
 
 	    ], function(err, results) {
-	    	console.log("x: "+data.row);
-	    	console.log("y: "+data.column);
 	    	// check if both players are in the game/room
 	    	if(games[results[2]].player2){	
 	    		// check if game is ready to be played
@@ -441,8 +438,6 @@ io.sockets.on("connection",function(socket){
 				    		// If the player has already selected a germ beforehand
 				    		else {
 				    			// Get the valid placements for this grid
-				    			console.log("selectedx: " + results[5]);
-				    			console.log("selectedY: " + results[6]);
 				    			var validPlacementList = validGrid(currentBoard, results[3], results[5], results[6]);
 					    		console.log(validPlacementList);
 					    		var isValid = false;
@@ -457,21 +452,30 @@ io.sockets.on("connection",function(socket){
 					    			// Place germ here
 					    			games[results[2]].board[row][column] = results[3];
 
-					    			// If the placement is a jump, clear the previous block
-					    			if(Math.abs(row - results[5]) == 2 || Math.abs(column - results[6]) == 2) {
-					    				games[results[2]].board[results[5]][results[6]] = 0;
-					    			}
+					    			
 
-					    			//Reset the player's selected coordinate
-					    			socket.set("selectedX", -1);
-					    			socket.set("selectedY", -1);
+					    			
 					    			// Change board state according to infected grid
 					    			var infectedGridList = infectedGrid(currentBoard, row, column, results[3]);
 					    			for(var i = 0; i < infectedGridList.length; i++) {
 					    				games[results[2]].board[infectedGridList[i].x][infectedGridList[i].y] = results[3];
 					    			}
-					    			// Broadcast message of germ placement to front end
-					    			io.sockets.in(results[2]).emit("place", { row:data.row, column:data.column, infectedGrids:infectedGridList, color: results[4] });
+
+									// If the placement is a jump, clear the previous block
+					    			if(Math.abs(row - results[5]) == 2 || Math.abs(column - results[6]) == 2) {
+					    				games[results[2]].board[results[5]][results[6]] = 0;
+					    				// Broadcast message to move germ to new location
+					    				io.sockets.in(results[2]).emit("move", { row:data.row, column:data.column, infectedGrids:infectedGridList, color: results[4], prevRow: results[5], prevCol: results[6] });
+					    			}
+					    			else {
+					    				// Broadcast message of germ placement to front end
+					    				io.sockets.in(results[2]).emit("place", { row:data.row, column:data.column, infectedGrids:infectedGridList, color: results[4] });	
+					    			}
+
+					    			//Reset the player's selected coordinate
+					    			socket.set("selectedX", -1);
+					    			socket.set("selectedY", -1);
+
 					    			
 					    			//Pass the turn to the opponent
 					    			socket.set("turn", false);
