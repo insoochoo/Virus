@@ -609,6 +609,9 @@ io.sockets.on("connection",function(socket){
 						socket.get("pid", function(err, data){
 							playerId = data;
 						}); 
+
+						//manually placing init germs
+						//will get affected in virus2
 	    				socket.emit("place", {row:0, column:0, infectedGrids:[], color:player1Color});
 						socket.emit("place", {row:length - 1, column:length - 1, infectedGrid:[], color:player1Color});
 						socket.emit("place", {row:length - 1, column:0, infectedGrids:[], color:player2Color});
@@ -617,6 +620,9 @@ io.sockets.on("connection",function(socket){
 						results[2].emit("place", {row:length - 1, column:length - 1, infectedGrid:[], color:player1Color});
 						results[2].emit("place", {row:length - 1, column:0, infectedGrids:[], color:player2Color});
 						results[2].emit("place", {row:0, column:length - 1, infectedGrids:[], color:player2Color});
+						//end 
+
+
 						//Send the available grids to player 1
 						var available = validGrid(board, playerId);
 						socket.emit("available",{available: available});
