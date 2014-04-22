@@ -186,6 +186,7 @@ socket.on("preview",function(data){
 
 socket.on("gameover",function(data){
 	socket.emit("reset_ready");
+	//TODO : display win/lose messages
 	$('.gameSetting').css("display","block");
 });
 

@@ -503,19 +503,19 @@ io.sockets.on("connection",function(socket){
 				    				}
 				    				console.log("possible spot counts : " + possibleSpots);
 				    				if (possibleSpots == 0){
-				    					if (p1Count > p2Count && pid == 1){
+				    					if (p1Count > p2Count && results[3] == 1){
 					    					results[1].emit("gameover", {message:"You Lost!"});
 						    				socket.emit("gameover", {message:"You Won!"});
 					    				}
-					    				else if (p1Count > p2Count && pid == 2){
+					    				else if (p1Count > p2Count && results[3] == 2){
 					    					results[1].emit("gameover", {message:"You Won!"});
 						    				socket.emit("gameover", {message:"You Lost!"});
 					    				}
-					    				else if (p1Count < p2Count && pid == 1){
+					    				else if (p1Count < p2Count && results[3] == 1){
 					    					results[1].emit("gameover", {message:"You Won!"});
 						    				socket.emit("gameover", {message:"You Lost!"});
 					    				}
-					    				else if (p1Count < p2Count && pid == 2){
+					    				else if (p1Count < p2Count && results[3] == 2){
 					    					results[1].emit("gameover", {message:"You Lost!"});
 						    				socket.emit("gameover", {message:"You Won!"});
 					    				}
