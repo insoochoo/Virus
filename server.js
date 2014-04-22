@@ -58,103 +58,16 @@ function initBoard(){
 	return board
 }
 
-
+// Pass in the current board state(2d array), the number of the current player (1 or 2) and the coordinate of the selected block
+// Returns an array of valid coordinates
 function validGrid(currentBoard, currentPlayer, selectedX, selectedY) {
 	var validGridList = [];
-	var opponent;
-	if(currentPlayer == 1) {
-		opponent = 2;
-	} 
-	else {
-		opponent = 1;
-	}
-	for(int i = 0; i < 5; i++) {
-		for(int j = 0; j < 5; j++) {
+	for(var i = 0; i < 5; i++) {
+		for(var j = 0; j < 5; j++) {
 			if(currentBoard[selectedX - 2 + i][selectedY - 2 + j] == 0) {
 				var validGrid = {x:selectedX - 2 + i, y:selectedY - 2 + j};
+				console.log("validGrid:" + validGrid.x +" " + validGrid.y);
 				validGridList.push(validGrid)
-			}
-		}
-	}
-	return validGridList;
-}
-
-// Pass in the current board state(2d array) and the number of the current player (1 or 2)
-// Returns an array of valid coordinates
-function validGrid(currentBoard, currentPlayer) {
-	var validGridList = [];
-	for(var x = 1; x < currentBoard.length - 1; x++) {
-		for(var y = 1; y < currentBoard[x].length - 1; y++) {
-			if( currentBoard[x][y] == 0 ) {
-				if( currentBoard[x+1][y] == currentPlayer ||
-					currentBoard[x+1][y+1] == currentPlayer ||
-					currentBoard[x][y+1] == currentPlayer ||
-					currentBoard[x-1][y+1] == currentPlayer ||
-					currentBoard[x-1][y] == currentPlayer ||
-					currentBoard[x-1][y-1] == currentPlayer ||
-					currentBoard[x][y-1] == currentPlayer ||
-					currentBoard[x+1][y-1] == currentPlayer ) {
-						var validGrid = {x:0, y:0};
-						validGrid.x = x;
-						validGrid.y = y;
-						validGridList.push(validGrid);
-
-				}
-			}
-		}
-	}
-	for(var x = 1; x < currentBoard.length - 1; x++ ) {
-		if(	currentBoard[x][0] == 0) {
-			if(currentBoard[x+1][0] == currentPlayer ||
-			currentBoard[x+1][1] == currentPlayer ||
-			currentBoard[x][1] == currentPlayer ||
-			currentBoard[x-1][1] == currentPlayer ||
-			currentBoard[x-1][0] == currentPlayer) {
-				var validGrid = {x:0, y:0};
-				validGrid.x = x;
-				validGrid.y = 0;
-				validGridList.push(validGrid);
-			}
-
-
-		}
-		if( currentBoard[x][currentBoard[x].length - 1] == 0 ) {
-			if(currentBoard[x+1][currentBoard[x].length - 1] == currentPlayer ||
-				currentBoard[x-1][currentBoard[x].length - 1] == currentPlayer ||
-				currentBoard[x-1][currentBoard[x].length - 2] == currentPlayer ||
-				currentBoard[x][currentBoard[x].length - 2] == currentPlayer ||
-				currentBoard[x+1][currentBoard[x].length - 2] == currentPlayer) {
-					var validGrid = {x:0, y:0};
-					validGrid.x = x;
-					validGrid.y = currentBoard[x].length - 1;
-					validGridList.push(validGrid);
-			}
-		}
-	}
-
-	for(var y = 1; y < currentBoard[0].length - 1; y++) {
-		if(currentBoard[0][y] == 0) {
-			if(currentBoard[0][y - 1] == currentPlayer ||
-				currentBoard[1][y - 1] == currentPlayer |
-				currentBoard[1][y] == currentPlayer ||
-				currentBoard[1][y + 1] == currentPlayer ||
-				currentBoard[0][y + 1] == currentPlayer ) {
-					var validGrid = {x:0, y:0};
-					validGrid.x = 0;
-					validGrid.y = y;
-					validGridList.push(validGrid);
-			}
-		}
-		if(currentBoard[currentBoard.length - 1][y] == 0) {
-			if(currentBoard[currentBoard.length - 1][y-1]== currentPlayer ||
-				currentBoard[currentBoard.length - 2][y-1]== currentPlayer ||
-				currentBoard[currentBoard.length - 2][y]== currentPlayer ||
-				currentBoard[currentBoard.length - 2][y+1]== currentPlayer ||
-				currentBoard[currentBoard.length - 1][y+1]== currentPlayer ) {
-					var validGrid = {x:0, y:0};
-					validGrid.x = currentBoard.length - 1;
-					validGrid.y = y;
-					validGridList.push(validGrid);
 			}
 		}
 	}
@@ -164,8 +77,8 @@ function validGrid(currentBoard, currentPlayer) {
 // Counts germs
 function countGerms(currentBoard, currentPlayer) {
 	var count = 0;
-	for (var i= 0; i<8; i++)
-		for(var l=0; l<8; l++)
+	for (var i= 2; i<length - 2; i++)
+		for(var l=0; l<length - 2; l++)
 			if(currentBoard[i][l] == currentPlayer)
 				count ++
 	return count;
@@ -442,14 +355,10 @@ io.sockets.on("connection",function(socket){
 			}); 
 
 			//Message front end to place starting germs onto the table
-			io.sockets.in(data.room).emit("place", {row:0, column:0, infectedGrids:[], color:player1Color});
-			io.sockets.in(data.room).emit("place", {row:length - 1, column:length - 1, infectedGrid:[], color:player1Color});
-			io.sockets.in(data.room).emit("place", {row:length - 1, column:0, infectedGrids:[], color:player2Color});
-			io.sockets.in(data.room).emit("place", {row:0, column:length - 1, infectedGrids:[], color:player2Color});
-
-			//Send the available grids to player 1
-			var available = validGrid(board, 1);
-			games[data.room].player1.emit("available",{available: available});
+			io.sockets.in(data.room).emit("place", {row:2, column:2, infectedGrids:[], color:player1Color});
+			io.sockets.in(data.room).emit("place", {row:length - 3, column:length - 3, infectedGrid:[], color:player1Color});
+			io.sockets.in(data.room).emit("place", {row:length - 3, column:2, infectedGrids:[], color:player2Color});
+			io.sockets.in(data.room).emit("place", {row:2, column:length - 3, infectedGrids:[], color:player2Color});
 
 			//set initial scores
 			io.sockets.in(data.room).emit("updateScore", {p1 :2, p2:2});
@@ -503,111 +412,114 @@ io.sockets.on("connection",function(socket){
 			socket.get.bind(this, "selectedY")
 
 	    ], function(err, results) {
-
+	    	console.log("x: "+data.row);
+	    	console.log("y: "+data.column);
 	    	// check if both players are in the game/room
 	    	if(games[results[2]].player2){	
 	    		// check if game is ready to be played
 	    		if(!games[results[2]].ended){
 	    			// check if it is the player's turn
 			    	if(results[0]){
-						
 			    		var currentBoard = games[results[2]].board;
 			    		var column = data.column;
 			    		var row = data.row;
-
-			    		// If the player has not selected a grid
-			    		if(results[5] == -1) {
-			    			//Check if the selected grid belongs to current player
-			    			if(currentBoard[row][column] == results[3]) {
-			    				socket.set("selectedX", row);
-			    				socket.set("selectedY", column);
-			    				// Show available grid now
-			    				// ...
-			    			}
-			    			else {
-			    				socket.emit("errorMessage", { message: "The selected grid doesn't belong to you." });
-			    			}
-			    		}
-			    		// If the player has selected a grid
-			    		else {
-			    			// Get the valid placements for this grid
-			    			var validPlacementList = validGrid(currentBoard, results[3], row, column);
-				    		console.log(validPlacementList);
-				    		var isValid = false;
-				    		for(var i = 0; i < validPlacementList.length; i++) {
-				    			if(validPlacementList[i].x == row && validPlacementList[i].y == column) {
-				    				isValid = true;
-				    				break;
-				    			}
-				    		}	
-				    		if(isValid == true) {
-				    			socket.emit("clearAvailable");
-				    			// Place germ here
-				    			games[results[2]].board[row][column] = results[3];
-
-				    			// Change board state according to infected grid
-				    			var infectedGridList = infectedGrid(currentBoard, row, column, results[3]);
-				    			for(var i = 0; i < infectedGridList.length; i++) {
-				    				games[results[2]].board[infectedGridList[i].x][infectedGridList[i].y] = results[3];
-				    			}
-				    			// Broadcast message of germ placement to front end
-				    			io.sockets.in(results[2]).emit("place", { row:data.row, column:data.column, infectedGrids:infectedGridList, color: results[4] });
-				    			
-				    			var opponentValidPlacement = [];
-								if(results[3] == 1) {
-									opponentValidPlacement = validGrid(games[results[2]].board, 2);
-								}
-								else {
-									opponentValidPlacement = validGrid(games[results[2]].board, 1);
-								}
-
-								// Send the 
-			    				results[1].emit("available", {available: opponentValidPlacement});
-				    			
-				    			//Pass the turn to the opponent
-				    			socket.set("turn", false);
-				    			results[1].set("turn", true);
-				    			results[1].emit("message",{ me:false, players: false, color: "#bdc3c7", message : "It's your turn!" });
-								socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Your opponent's turn!" });
-								
-
-
-
-			    				var p1Count = countGerms(games[results[2]].board, 1);
-			    				var p2Count = countGerms(games[results[2]].board, 2);
-			    				//console.log(p1Count + " " + p2Count);
-			    				io.sockets.in(results[2]).emit("updateScore", {p1 : p1Count, p2: p2Count});
-
-			    				if (p1Count+p2Count != 64 && opponentValidPlacement.length == 0){
-			    					results[1].emit("gameover", {message:"You Lost!"});
-			    					socket.emit("gameover", {message:"You Won!"});
-			    				}
-			    				else if (p1Count+p2Count == 64){
-			    					if (p1Count > p2Count && results[3] == 1 || p2Count > p1Count && results[3]==2){
-			    						results[1].emit("gameover", {message:"You Lost!"});
-			    						socket.emit("gameover", {message:"You Won!"});
-			    					}
-			    					else if (p1Count > p2Count && results[3] == 2 || p2Count > p1Count && results[3] == 1){
-			    						socket.emit("gameover", {message:"You Lost!"});
-			    						results[1].emit("gameover", {message:"You Won!"});
-			    					}
-			    					else if (p1Count == p2Count){
-			    						socket.emit("gameover", {message:"Draw!"});
-			    						results[1].emit("gameover", {message:"Draw!"});
-			    					}
-			    				}
-
-
+						//Check if the selected grid belongs to current player
+		    			if(currentBoard[row][column] == results[3]) {
+		    				socket.emit("clearAvailable");
+		    				socket.set("selectedX", row);
+		    				socket.set("selectedY", column);
+		    				// Show available grid now
+		    				var validPlacementList = validGrid(currentBoard, results[3], row, column);
+		    				socket.emit("available",{available: validPlacementList});
+		    			}
+		    			// If the player has selected an empty grid
+		    			else if(currentBoard[row][column] == 0) {
+				    		// If the player has not selected a germ beforehand
+				    		if(results[5] == -1) {
+				    			socket.emit("errorMessage", { message : "Select the germ you want to move first" });
 				    		}
+				    		// If the player has already selected a germ beforehand
 				    		else {
-				    			// You can't place germ here
-				    			socket.emit("errorMessage", { message: "You can't place your germ here." });
+				    			// Get the valid placements for this grid
+				    			console.log("selectedx: " + results[5]);
+				    			console.log("selectedY: " + results[6]);
+				    			var validPlacementList = validGrid(currentBoard, results[3], results[5], results[6]);
+					    		console.log(validPlacementList);
+					    		var isValid = false;
+					    		for(var i = 0; i < validPlacementList.length; i++) {
+					    			if(validPlacementList[i].x == row && validPlacementList[i].y == column) {
+					    				isValid = true;
+					    				break;
+					    			}
+					    		}	
+					    		if(isValid == true) {
+					    			socket.emit("clearAvailable");
+					    			// Place germ here
+					    			games[results[2]].board[row][column] = results[3];
+
+					    			// If the placement is a jump, clear the previous block
+					    			if(Math.abs(row - results[5]) == 2 || Math.abs(column - results[6]) == 2) {
+					    				games[results[2]].board[results[5]][results[6]] = 0;
+					    			}
+
+					    			//Reset the player's selected coordinate
+					    			socket.set("selectedX", -1);
+					    			socket.set("selectedY", -1);
+					    			// Change board state according to infected grid
+					    			var infectedGridList = infectedGrid(currentBoard, row, column, results[3]);
+					    			for(var i = 0; i < infectedGridList.length; i++) {
+					    				games[results[2]].board[infectedGridList[i].x][infectedGridList[i].y] = results[3];
+					    			}
+					    			// Broadcast message of germ placement to front end
+					    			io.sockets.in(results[2]).emit("place", { row:data.row, column:data.column, infectedGrids:infectedGridList, color: results[4] });
+					    			
+					    			//Pass the turn to the opponent
+					    			socket.set("turn", false);
+					    			results[1].set("turn", true);
+					    			results[1].emit("message",{ me:false, players: false, color: "#bdc3c7", message : "It's your turn!" });
+									socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Your opponent's turn!" });
+									
+
+
+
+				    				var p1Count = countGerms(games[results[2]].board, 1);
+				    				var p2Count = countGerms(games[results[2]].board, 2);
+				    				//console.log(p1Count + " " + p2Count);
+				    				io.sockets.in(results[2]).emit("updateScore", {p1 : p1Count, p2: p2Count});
+
+
+				    				//TODO: Update win condition checking
+				    				/*if (p1Count+p2Count != 64 && opponentValidPlacement.length == 0){
+				    					results[1].emit("gameover", {message:"You Lost!"});
+				    					socket.emit("gameover", {message:"You Won!"});
+				    				}
+				    				else*/ if (p1Count+p2Count == 64){
+				    					if (p1Count > p2Count && results[3] == 1 || p2Count > p1Count && results[3]==2){
+				    						results[1].emit("gameover", {message:"You Lost!"});
+				    						socket.emit("gameover", {message:"You Won!"});
+				    					}
+				    					else if (p1Count > p2Count && results[3] == 2 || p2Count > p1Count && results[3] == 1){
+				    						socket.emit("gameover", {message:"You Lost!"});
+				    						results[1].emit("gameover", {message:"You Won!"});
+				    					}
+				    					else if (p1Count == p2Count){
+				    						socket.emit("gameover", {message:"Draw!"});
+				    						results[1].emit("gameover", {message:"Draw!"});
+				    					}
+				    				}
+
+
+					    		}
+					    		else {
+					    			// You can't place germ here
+					    			socket.emit("errorMessage", { message: "You can't place your germ here." });
+					    		}
 				    		}
-			    		}
+				    	}
 			    		
-
-
-
+			    		else {
+			    			
+			    		}
 			    		
 				    }
 			    	else{
@@ -708,10 +620,6 @@ io.sockets.on("connection",function(socket){
 						io.sockets.in(games[results[1]]).emit("place", {row:length - 1, column:length - 1, infectedGrid:[], color:games[results[1]].player1.color});
 						io.sockets.in(games[results[1]]).emit("place", {row:length - 1, column:0, infectedGrids:[], color:games[results[1]].player2.color});
 						io.sockets.in(games[results[1]]).emit("place", {row:0, column:length - 1, infectedGrids:[], color:games[results[1]].player2.color});
-
-						//Send the available grids to player 1
-						var available = validGrid(board, 1);
-						games[results[1]].player1.emit("available",{available: available});
 
 	    				// notify opponent
 	    				results[2].get("turn",function(err, turn){

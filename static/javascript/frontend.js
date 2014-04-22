@@ -1,8 +1,8 @@
 $(document).ready(function() {
     var content="";
-    for(var i = 0; i < 8; i++){
+    for(var i = 2; i < 10; i++){
         content+="<tr>";
-        for(var j = 0; j < 8; j++) {
+        for(var j = 2; j < 10; j++) {
           content+="<td class='box' data-row="+i+" data-column="+j+"><i class='fa fa-circle'>";
         }
     }
@@ -90,8 +90,8 @@ socket.on("updateScore", function(data){
 })
 
 socket.on("clearboard", function(){
-	for(var i = 0; i < 8; i++){
-		for(var l=0; l < 8; l++){
+	for(var i = 2; i < 10; i++){
+		for(var l=2; l < 10; l++){
 			$(".box[data-row='"+i+"'][data-column='"+l+"']").animate({
 	  			backgroundColor: ""
 	  		});
@@ -100,8 +100,8 @@ socket.on("clearboard", function(){
 })
 
 function clearAvailable(){
-	for(var i = 0; i < 8; i++){
-		for(var l=0; l < 8; l++){
+	for(var i = 2; i < 10; i++){
+		for(var l = 2; l < 10; l++){
 			if($(".box[data-row='"+i+"'][data-column='"+l+"']").css("background-color")=="rgb(225, 225, 225)"){
 				$(".box[data-row='"+i+"'][data-column='"+l+"']").animate({
 		  			backgroundColor: ""
