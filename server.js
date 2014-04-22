@@ -490,14 +490,15 @@ io.sockets.on("connection",function(socket){
 				    				var p2Count = countGerms(games[results[2]].board, 2);
 				    				//console.log(p1Count + " " + p2Count);
 				    				io.sockets.in(results[2]).emit("updateScore", {p1 : p1Count, p2: p2Count});
-
+				    				
 
 				    				//TODO: Update win condition checking
 				    				/*if (p1Count+p2Count != 64 && opponentValidPlacement.length == 0){
 				    					results[1].emit("gameover", {message:"You Lost!"});
 				    					socket.emit("gameover", {message:"You Won!"});
 				    				}
-				    				else*/ if (p1Count+p2Count == 64){
+				    				else*/ 
+				    				if (p1Count+p2Count == 64){
 				    					if (p1Count > p2Count && results[3] == 1 || p2Count > p1Count && results[3]==2){
 				    						results[1].emit("gameover", {message:"You Lost!"});
 				    						socket.emit("gameover", {message:"You Won!"});
