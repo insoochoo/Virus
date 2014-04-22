@@ -9,6 +9,7 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
   background-color: #f6f7f8;
+  font-family: 'Varela Round', 'sans-serif';
 }
 
 *:focus {
@@ -101,7 +102,7 @@ table tr td i{
   float: none !important;
 }
 body > .container {
-  padding: 50px 0 30px 0;
+  padding: 30px 0 50px 0;
 }
 .container .text-muted {
   margin: 20px 0;
@@ -203,7 +204,7 @@ span#copy-clipboard, span#help{
   color:#1abc9c;
   background-color: #1abc9c;
   border-radius: 0 5px 5px 0;
-  top: -1px;
+  top: 0px;
   cursor:pointer;
 }
 span#help{
@@ -239,7 +240,10 @@ span#help{
   border-bottom:1px solid #c94727;
 }
 .logo{
-  margin-top:30px;
+  font-size: 15px;
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 0 15px;
 }
 .logo span{
   font-size:30px;
@@ -251,15 +255,19 @@ span#help{
   clear:both;
 }
 .p1-status, .p2-status{
-  margin-top: 3px;
+  margin-top: 5px;
   position:relative;
-  text-align: right;
-  width: auto;
+  /* text-align: right; */
+  padding: 0 1px;
 }
 .p1-status i, .p2-status i{
   color:#eb6b56;
   -webkit-transition: color 0.2s;
   transition: color 0.2s;
+  float: right;
+  position: relative;
+  top: 3px;
+  margin-right: 4px;
 }
 .online i{
   color:#2ecc71;
@@ -268,6 +276,9 @@ span#help{
   font-size:13px;
   letter-spacing: 1px;
   text-transform: uppercase;
+  float: right;
+  position: relative;
+  top: 2px;
 }
 a, h1{
   letter-spacing: 1px;
@@ -285,6 +296,17 @@ a, h1{
   overflow-y: scroll;
   padding:10px;
   background-color: white;
+}
+
+.p2-status #turnMessage {
+    float: left;
+    text-transform: none;
+}
+
+.gameSetting span {
+    display: inherit;
+    margin-bottom: 10px;
+    font-size: 25px;
 }
 
 .field, #content{

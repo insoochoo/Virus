@@ -4,6 +4,7 @@ block content
 	.container(id="main-content")
 		.row
 			.gameSetting(style="display:none")
+				span
 				button(id="leave") Leave
 				button(id="rematch") Rematch
 		.row
@@ -23,8 +24,9 @@ block content
 							i(class="fa fa-clipboard fa-stack-1x" style="color:#fff")
 			.col-xs-3(style="padding:0")
 				.p2-status(style="")
-					i(class="fa fa-circle")
+					span#turnMessage Waiting to connect..
 					span &nbsp;OFFLINE
+					i(class="fa fa-circle")
 				.p1-score
 					span 0
 				.p2-score

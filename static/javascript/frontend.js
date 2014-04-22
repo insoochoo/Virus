@@ -56,6 +56,14 @@ socket.on("online",function(){
 	$('.p2-status span').html(" Connected");
 });
 
+socket.on("turn", function(){
+	$('.p2-status #turnMessage').html("Your turn");
+});
+
+socket.on("opponentTurn", function(){
+	$('.p2-status #turnMessage').html("Opponent's turn");
+});
+
 socket.on("notify",function(data){
 	if(data.connected == 1){
 		if(data.turn){
@@ -188,6 +196,7 @@ socket.on("gameover",function(data){
 	socket.emit("reset_ready");
 	//TODO : display win/lose messages
 	$('.gameSetting').css("display","block");
+	$('.gameSetting span').html(data.message);
 });
 
 socket.on("leave",function(){

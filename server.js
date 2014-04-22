@@ -337,8 +337,8 @@ io.sockets.on("connection",function(socket){
 			socket.emit("message",{ me: false, players: false, color: "#bdc3c7", message : "Player 1 has joined the game." });
 			io.sockets.in(data.room).emit("message",{ me: false, players: false, color: "#bdc3c7", message : "Player 2 has joined the game." });
 
-			games[data.room].player1.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "It's your turn!" });
-			socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Your opponent's turn!" });
+			games[data.room].player1.emit("turn");
+			socket.emit("opponentTurn");
 		    		
 			//Notify players
 			games[data.room].player1.emit("notify",{connected:1, turn : true});
@@ -477,9 +477,8 @@ io.sockets.on("connection",function(socket){
 					    			//Pass the turn to the opponent
 					    			socket.set("turn", false);
 					    			results[1].set("turn", true);
-					    			results[1].emit("message",{ me:false, players: false, color: "#bdc3c7", message : "It's your turn!" });
-									socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Your opponent's turn!" });
-									
+					    			results[1].emit("turn");
+									socket.emit("opponentTurn");
 
 
 				    				var p1Count = countGerms(games[results[2]].board, 1);
@@ -622,12 +621,12 @@ io.sockets.on("connection",function(socket){
 	    				console.log("ready");
 				    	games[results[1]].ended=false;
 				    	if(results[0]){
-							socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "It's your turn!" });
-			    			results[2].emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Waiting for your opponent to make a move..." });
+							socket.emit("turn");
+			    			results[2].emit("opponentTurn");
 				    	}
 				    	else{
-							results[2].emit("message",{ me:false, players: false, color: "#bdc3c7", message : "It's your turn!" });
-			    			socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Waiting for your opponent to make a move..." });
+							results[2].emit("turn");
+			    			socket.emit("opponentTurn");
 				    	}
 				    	// notify current socket player
 				    	socket.emit("notify",{connected:1, turn : results[0]});
