@@ -591,13 +591,14 @@ io.sockets.on("connection",function(socket){
 			socket.get.bind(this, "room"),
 			socket.get.bind(this, "opponent")
 	    ], function(err, results) {
-
 	    	if(results[1] in games){
 				//re-initialize board
 				board=initBoard();
 		    	games[results[1]].board=board;
 				socket.set("ready", true);
-
+				socket.emit("message",{ me:false, players: false, color: "#343a3d", message : "Waiting for your opponent to rematch!" });
+				results[2].emit("message",{ me:false, players: false, color: "#343a3d", message : "Your opponent wants to rematch!" });
+				    	
 	    		// to check if opponent is also ready
 	    		results[2].get("ready",function(err, ready){
 	    			
@@ -615,11 +616,32 @@ io.sockets.on("connection",function(socket){
 				    	}
 				    	// notify current socket player
 				    	socket.emit("notify",{connected:1, turn : results[0]});
-	    				io.sockets.in(games[results[1]]).emit("clearboard");
-	    				io.sockets.in(games[results[1]]).emit("place", {row:0, column:0, infectedGrids:[], color:games[results[1]].player1.color});
-						io.sockets.in(games[results[1]]).emit("place", {row:length - 1, column:length - 1, infectedGrid:[], color:games[results[1]].player1.color});
-						io.sockets.in(games[results[1]]).emit("place", {row:length - 1, column:0, infectedGrids:[], color:games[results[1]].player2.color});
-						io.sockets.in(games[results[1]]).emit("place", {row:0, column:length - 1, infectedGrids:[], color:games[results[1]].player2.color});
+				    	//clear previous gameboard for all players
+	    				socket.emit("clearboard");results[2].emit("clearboard");
+	    				//place new germs on the new board
+	    				var player1Color;
+						var player2Color;
+						var playerId;
+						games[results[1]].player1.get("color", function(err, data){
+							player1Color = data;
+						}); 
+						games[results[1]].player2.get("color", function(err, data){
+							player2Color = data;
+						}); 
+						socket.get("pid", function(err, data){
+							playerId = data;
+						}); 
+
+						//manually placing init germs
+	    				socket.emit("place", {row:2, column:2, infectedGrids:[], color:player1Color});
+						socket.emit("place", {row:length - 3, column:length - 3, infectedGrid:[], color:player1Color});
+						socket.emit("place", {row:length - 3, column:2, infectedGrids:[], color:player2Color});
+						socket.emit("place", {row:2, column:length - 3, infectedGrids:[], color:player2Color});
+						results[2].emit("place", {row:2, column:2, infectedGrids:[], color:player1Color});
+						results[2].emit("place", {row:length - 3, column:length - 3, infectedGrid:[], color:player1Color});
+						results[2].emit("place", {row:length - 3, column:2, infectedGrids:[], color:player2Color});
+						results[2].emit("place", {row:2, column:length - 3, infectedGrids:[], color:player2Color});
+						//end 
 
 	    				// notify opponent
 	    				results[2].get("turn",function(err, turn){
