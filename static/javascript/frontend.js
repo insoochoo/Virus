@@ -71,6 +71,14 @@ socket.on("notify",function(data){
 });
 
 $(document).ready(function() {
+	$("#leave").click(function(){
+		socket.emit("leave");
+		window.location = '/exit';
+	});
+	$("#rematch").click(function(){
+		socket.emit("reset");
+		$('.gameSetting').css("display","none");
+	});
 	$(".box").click(function(){
 		socket.emit("click", { row : $(this).data("row"), column : $(this).data("column") });
 	});
@@ -92,9 +100,7 @@ socket.on("updateScore", function(data){
 socket.on("clearboard", function(){
 	for(var i = 0; i < 8; i++){
 		for(var l=0; l < 8; l++){
-			$(".box[data-row='"+i+"'][data-column='"+l+"']").animate({
-	  			backgroundColor: ""
-	  		});
+			$(".box[data-row='"+i+"'][data-column='"+l+"']").css("background-color","");
 		}
 	}
 })
@@ -158,19 +164,7 @@ socket.on("preview",function(data){
 
 socket.on("gameover",function(data){
 	socket.emit("reset_ready");
-	alertify.set({ labels: {
-	    ok     : "Play again!",
-	    cancel : "Leave Room"
-	} });
-	alertify.confirm(data.message, function(e){
-		if(e) {
-            socket.emit("reset");
-        }
-        else {
-       		socket.emit("disconnect");
-            window.location = '/exit';
-        }
-	}, 'confirm');
+	$('.gameSetting').css("display","block");
 });
 
 socket.on("leave",function(){

@@ -3,6 +3,10 @@ extends base
 block content
 	.container(id="main-content")
 		.row
+			.gameSetting(style="display:none")
+				button(id="leave") Leave
+				button(id="rematch") Rematch
+		.row
 			.col-xs-1
 			#board.col-xs-7
 				table.center-table
