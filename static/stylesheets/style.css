@@ -166,7 +166,6 @@ code {
   font-size:180px;
 }
 .text a{
-  color:#1abc9c;
   cursor:pointer;
   font-size:22px;
   text-transform: uppercase;
@@ -176,7 +175,7 @@ code {
   font-size:inherit;
 }
 .text a:hover{
-  color:#16a085;
+  color:white;
 }
 
 .confirm p{
