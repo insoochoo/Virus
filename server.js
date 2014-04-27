@@ -695,6 +695,7 @@ io.sockets.on("connection",function(socket){
 				socket.emit("message",{ me:true, players: true, color: results[1], message : data.message });
 			}
 		});
+		console.log(Object.keys(games));
 	});
 
 });
