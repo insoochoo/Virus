@@ -19,6 +19,36 @@ games={
 		}
 	*/
 }
+gamesInfo={
+}
+
+names = ['Challenge Me!', 'I will infect you', 
+				'I dare you to beat me', 'Want to taste my virus?',
+				'Let\'s have some fun', 'It\'s all about the strategy',
+				'Struggle is real', 'Go easy on me',
+				'Don\'t disappoint me', 'I am legendary'];
+function sendGamesInfo(){
+	gamesInfo = {};
+	var gameList = Object.keys(games);
+	for (var i=0; i<gameList.length ; i++){
+		gamesInfo[i]={
+			roomID : gameList[i],
+			num : 0,
+			roomName : games[gameList[i]].name
+		}
+		gamesInfo[i].num = (games[gameList[i]].player2 == null) ? 1:2;
+	}
+	io.sockets.in('lobby').emit("updateLobby",{ gamesInfo : gamesInfo });
+	console.log("sending Games Info");
+}
+
+function getRandomInt(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateGameName(){
+	return (names[getRandomInt(0,names.length-1)]);
+}
 
 function generateRoom() {
     var collection = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -293,7 +323,8 @@ app.get("/about",function(req, res){
 
 io.sockets.on("connection",function(socket){
 	console.log("connection detected");
-	socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Welcome to VIRUS" });
+	socket.join('lobby');
+	socket.emit("message",{ me:false, players: false, color: "#B7BDC4", message : "Welcome to VIRUS" });
 	socket.on("join",function(data){
 		console.log("server room:" + data.room);
 		
@@ -308,6 +339,7 @@ io.sockets.on("connection",function(socket){
 			}
 
 			// Initiate player 2
+			socket.leave('lobby');
 			socket.join(data.room);
 			socket.set("room", data.room);
 			socket.set("pid", 2);
@@ -334,8 +366,8 @@ io.sockets.on("connection",function(socket){
 			io.sockets.in(data.room).emit("online");
 
 			console.log("PLAYER 2 HAS JOINED THE GAME");
-			socket.emit("message",{ me: false, players: false, color: "#bdc3c7", message : "Player 1 has joined the game." });
-			io.sockets.in(data.room).emit("message",{ me: false, players: false, color: "#bdc3c7", message : "Player 2 has joined the game." });
+			socket.emit("message",{ me: false, players: false, color: "#B7BDC4", message : "Player 1 has joined the game." });
+			io.sockets.in(data.room).emit("message",{ me: false, players: false, color: "#B7BDC4", message : "Player 2 has joined the game." });
 
 			games[data.room].player1.emit("turn");
 			socket.emit("opponentTurn");
@@ -366,6 +398,7 @@ io.sockets.on("connection",function(socket){
 		// Initiate player 1 and game table
 		else{
 			//Initiate player 1
+			socket.leave('lobby');
 			socket.join(data.room);
 			socket.set("room", data.room);
 			socket.set("pid", 1);
@@ -386,19 +419,25 @@ io.sockets.on("connection",function(socket){
 			  		[ 2, 2, 2, 2, 2, 2, 2 ],
 			  		[ 2, 2, 2, 2, 2, 2, 2 ] ];*/
 
-			console.log(board);
+			//console.log(board);
+			var gameName = generateGameName();
 			// initiate "games" object
 			games[data.room]={
 				player1: socket,
 				player2: null,
 				board: board,
+				name: gameName,
 				ended: false
 			}
 			
 			console.log("PLAYER 1 HAS JOINED THE GAME");
-			socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Player 1 has joined the game." });
+			socket.emit("message",{ me:false, players: false, color: "#6E7174", message : "Name : " + gameName });
+			socket.emit("message",{ me:false, players: false, color: "#6E7174", message : "Code : " + data.room });
+			
+			
+			
 		}
-		//console.log(games);
+		sendGamesInfo();
 	});
 	// check where the player put the "box"
 	socket.on("click",function(data){
@@ -569,8 +608,6 @@ io.sockets.on("connection",function(socket){
 			    	socket.set("preview", [data.row, data.column]);
 			    	io.sockets.in(results[0]).emit("preview",{ hover:1, row:data.row, column:data.column, color:results[1] });
 			    }
-
-			    // on mouseleave
 			    else{
 			    	io.sockets.in(results[0]).emit("preview",{ hover:0, row:results[3][0], column:results[3][1], color:results[1] });
 			    	if(games[results[0]].player2){
@@ -578,7 +615,7 @@ io.sockets.on("connection",function(socket){
 				    	
 			    			//if row and column are the same
 			    			//if both players hovering over the same block
-			    			if(results[3][0] == preview[0]
+			    			if(preview[0] != null && preview[1] != null && results[3][0] == preview[0]
 			    				&& results[3][1] == preview[1]){
 			    				results[2].get("color", function(err, color) {
 			    				//re-color whoever is still hovering over the same block again
@@ -674,13 +711,15 @@ io.sockets.on("connection",function(socket){
 				console.log("Disconnecting...");
 				io.sockets.in(room).emit('leave');
 				if(room in games){
-					delete games.room;
+					delete games[room];
 				}
 			}
 		});
-		//console.log(games);
+		sendGamesInfo();
 	});
-
+	socket.on("loadLobbyInfo", function(){
+		sendGamesInfo();
+	})
 
 	socket.on("send",function(data){
 		async.parallel([
@@ -695,7 +734,8 @@ io.sockets.on("connection",function(socket){
 				socket.emit("message",{ me:true, players: true, color: results[1], message : data.message });
 			}
 		});
-		console.log(Object.keys(games));
+		//console.log(Object.keys(games));
+		//console.log(games);
 	});
 
 });

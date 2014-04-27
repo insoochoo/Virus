@@ -26,6 +26,35 @@ body {
   background-color: #34495e;
 }
 
+.roomJoin a.lobbyJoinBtn:hover {
+    color: rgba(242, 116, 74, 0.95);
+}
+.roomJoin a.lobbyJoinBtn{
+    color: #34495e;
+    text-transform:none;
+    letter-spacing:0;
+    font-size: 16px;
+}
+
+table.displayLobby {
+    margin: 50px auto;
+    border-spacing: 0;
+}
+.displayLobby tr td {
+    border: 1px solid #C9C9C9;
+    border-radius: 3px;
+    padding: 5px 10px;
+}
+.displayLobby .roomName {
+    width: 270px;
+}
+.displayLobby .roomAvailable {
+    width: 80px;
+}
+.displayLobby .roomJoin {
+    width: 70px;
+}
+
 .gameSetting {
     text-align: center;
     margin-bottom: 10px;
@@ -311,6 +340,7 @@ a, h1{
 .field, #content{
   border:2px solid #ecf0f1;
   border-top: beige;
+  font-size: 13px;
 }
 .field{
   width: 196px;

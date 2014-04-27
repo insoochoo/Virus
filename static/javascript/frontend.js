@@ -1,3 +1,5 @@
+var socket = io.connect(window.location.hostname);
+
 $(document).ready(function() {
     var content="";
     for(var i = 2; i < 10; i++){
@@ -28,9 +30,9 @@ $(document).ready(function() {
 	'placement': 'left',
 	'container':'body'
 	});
+	socket.emit("loadLobbyInfo");
 });
 
-var socket = io.connect(window.location.hostname);
 
 
 /*
@@ -40,6 +42,27 @@ var socket = io.connect(window.location.hostname);
 */
 
 var room = $("input").data("room");
+
+
+socket.on("updateLobby", function(data){
+	var content="";
+	var game;
+	for(game in data.gamesInfo){
+		game = data.gamesInfo[game];
+		content+="<tr>";
+		content+="<td class='roomName'>";
+		content+=game.roomName;
+		content+="<td>";
+		content+=game.roomID;
+		content+="<td class='roomAvailable'>";
+		content+=game.num + "/2";
+		if (game.num == 1)
+			content+="<td class='roomJoin'><a class='lobbyJoinBtn' href='./" + game.roomID + "'>Join";
+		else
+			content+="<td class='roomJoin'><a class='lobbyJoinBtn' href='#" + game.roomID + "'>Full";
+	}
+    $("#lobby table").html(content);
+})
 
 socket.on("connect",function(){
 	if(room){
