@@ -398,6 +398,7 @@ io.sockets.on("connection",function(socket){
 			console.log("PLAYER 1 HAS JOINED THE GAME");
 			socket.emit("message",{ me:false, players: false, color: "#bdc3c7", message : "Player 1 has joined the game." });
 		}
+		console.log(games);
 	});
 	// check where the player put the "box"
 	socket.on("click",function(data){
@@ -677,6 +678,7 @@ io.sockets.on("connection",function(socket){
 				}
 			}
 		});
+		console.log(games);
 	});
 
 
