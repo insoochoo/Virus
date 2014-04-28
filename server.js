@@ -325,6 +325,11 @@ io.sockets.on("connection",function(socket){
 	console.log("connection detected");
 	socket.join('lobby');
 	socket.emit("message",{ me:false, players: false, color: "#B7BDC4", message : "Welcome to VIRUS" });
+
+	socket.on("sendLobbyMessage", function(data) {
+		io.sockets.in('lobby').emit("lobbyMessage",{ message : data.message, name : data.name });
+	});
+
 	socket.on("join",function(data){
 		console.log("server room:" + data.room);
 		
@@ -359,6 +364,8 @@ io.sockets.on("connection",function(socket){
 			//Initialize selected grid's coordinate to -1 (nothing selected)
 			socket.set("selectedX", -1);
 			socket.set("selectedY", -1);
+
+			
 
 			// Save player 2 socket into "games" object
 			games[data.room].player2 = socket;
@@ -409,6 +416,9 @@ io.sockets.on("connection",function(socket){
 			//Initialize selected grid's coordinate to -1 (nothing selected)
 			socket.set("selectedX", -1);
 			socket.set("selectedY", -1);
+
+
+
 			//Initiate game table as an array
 			board=initBoard();
 
@@ -544,23 +554,33 @@ io.sockets.on("connection",function(socket){
 				    				if (possibleSpots == 0){
 				    					if (p1Count > p2Count && results[3] == 1){
 					    					results[1].emit("gameover", {message:"You Lost!"});
+					    					results[1].set("turn", true);
 						    				socket.emit("gameover", {message:"You Won!"});
+						    				socket.set("turn", false);
 					    				}
 					    				else if (p1Count > p2Count && results[3] == 2){
 					    					results[1].emit("gameover", {message:"You Won!"});
+					    					results[1].set("turn", false);
 						    				socket.emit("gameover", {message:"You Lost!"});
+						    				socket.set("turn", true);
 					    				}
 					    				else if (p1Count < p2Count && results[3] == 1){
 					    					results[1].emit("gameover", {message:"You Won!"});
+					    					results[1].set("turn", false);
 						    				socket.emit("gameover", {message:"You Lost!"});
+						    				socket.set("turn", true);
 					    				}
 					    				else if (p1Count < p2Count && results[3] == 2){
 					    					results[1].emit("gameover", {message:"You Lost!"});
+					    					results[1].set("turn", true);
 						    				socket.emit("gameover", {message:"You Won!"});
+						    				socket.set("turn", false);
 					    				}
 					    				else{
 					    					results[1].emit("gameover", {message:"Draw!"});
+					    					results[1].set("turn",false);
 						    				socket.emit("gameover", {message:"Draw!"});
+						    				socket.set("turn", true);
 					    				}
 				    				}
 					    		}
@@ -683,6 +703,9 @@ io.sockets.on("connection",function(socket){
 						socket.get("pid", function(err, data){
 							playerId = data;
 						}); 
+
+						//Reset the score
+						io.sockets.in(results[1]).emit("updateScore", {p1 :2, p2:2});
 
 						//manually placing init germs
 	    				socket.emit("place", {row:2, column:2, infectedGrids:[], color:player1Color});
