@@ -110,7 +110,7 @@ table.displayLobby {
 
 table {
     border-collapse: separate;
-    border-spacing: 6px 6px;
+    border-spacing: 2px 2px;
 }
 table tr{
   margin:20px;
@@ -319,7 +319,7 @@ a, h1{
 
 #content{
   width:100%;
-  height: 415px;
+  height: 380px;
   border: solid 1px #999;
   overflow-y: scroll;
   padding:10px;
