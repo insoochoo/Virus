@@ -16,14 +16,19 @@ html(lang="en")
 		.topBar
 			a.navbar-brand(href="/") VIRUS 
 			ul
-				li.active
-					a(href="/") Home
-				li
-					a(href="/about") About
+				block topBarList
+					li
+						a(href="/") Home
+					li
+						a(href="/about") About
 		
 		block content
 
 		#footer
+			| Virus is developed by 
+			a(href="http://insoochoo.com" target="/") Insoo Choo
+			|  and 
+			a(href="http://rayhu.com" target="/") Ray Hu
 			
 		block javascript
 		script(type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')

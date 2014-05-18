@@ -20,6 +20,9 @@ body {
   position: absolute;
   bottom: 0;
   width: 100%;
+  padding-top: 23px;
+  padding-left: 20px;
+  color: lightgrey;
   /* Set the fixed height of the footer here */
   min-width: 1000px;
   height: 60px;
