@@ -1,3 +1,13 @@
-The OpenShift `nodejs` cartridge documentation can be found at:
+Virus
+==========
 
-https://github.com/openshift/origin-server/tree/master/cartridges/openshift-origin-cartridge-nodejs/README.md
+Multiple Player turn-based strategy game
+
+Checkout : [Virus](http://virus.insoochoo.com)
+
+Dependencies:
+----------
+   * Jade
+   * Async
+   * Express
+   * Socket.io
